@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "263545103861",
+    "firebase_url": "https://codecanyon-c8757.firebaseio.com",
+    "project_id": "codecanyon-c8757",
+    "storage_bucket": "codecanyon-c8757.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263545103861:android:10ea09a64747cc13c72cbc",
+        "android_client_info": {
+          "package_name": "com.radugunn.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263545103861-8nsclf141s3abfcigvm6q8i4e99h4ria.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.radugunn.app",
+            "certificate_hash": "5bc008267d465b54dc91cac9253d88d5686f4ce0"
+          }
+        },
+        {
+          "client_id": "263545103861-hg5pdm48ohh59naqgl4uv221scdft1h2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHBcdsmpDM8P8N4eIt5oZnBk6BnWkwUPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263545103861-hg5pdm48ohh59naqgl4uv221scdft1h2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
