@@ -368,5 +368,7 @@
     <string name="recently">مؤخرا</string>
     <string name="viewed_product">المنتج الذي تم عرضه</string>
 
+    <string name="store_closed" translatable="false">اعتبارًا من الآن ، المتجر مغلق وبالتالي لا يمكنك إجراء عملية شراء</string>
+
 
 </resources>

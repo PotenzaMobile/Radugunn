@@ -391,4 +391,6 @@
     <string name="recently">最近</string>
     <string name="viewed_product">閲覧した製品</string>
 
+    <string name="store_closed" translatable="false">現在、お店は休業しておりますのでご購入いただけません</string>
+
 </resources>

@@ -590,7 +590,18 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
                     homeRider = gson.fromJson(
                             jsonObject.toString(), new TypeToken<Home>() {
                             }.getType());
-                    if (jsonObject.has("pgs_woo_api_add_to_cart_option") && jsonObject.getString("pgs_woo_api_add_to_cart_option").equals("enable")) {
+
+                    /*if (jsonObject.has("store_openclose") && jsonObject.getString("store_openclose").equals("open")) {
+                        if (jsonObject.has("pgs_woo_api_catalog_mode_option") && jsonObject.getString("pgs_woo_api_catalog_mode_option").equals("enable")) {
+                            Config.IS_CATALOG_MODE_OPTION = false;
+                        }
+                    } else {
+                        Toast.makeText(this,"As of now, the shop is closed hence you cannot make a purchase",Toast.LENGTH_SHORT).show();
+                        Config.IS_CATALOG_MODE_OPTION = true;
+                        showCart();
+                    }*/
+
+                    /*  if (jsonObject.has("pgs_woo_api_add_to_cart_option") && jsonObject.getString("pgs_woo_api_add_to_cart_option").equals("enable")) {
                         Constant.IS_ADD_TO_CART_ACTIVE = true;
                     } else {
                         Constant.IS_ADD_TO_CART_ACTIVE = false;
@@ -601,7 +612,33 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
                         showCart();
                     } else {
                         Config.IS_CATALOG_MODE_OPTION = false;
+                    }*/
+
+                    if (jsonObject.has("store_openclose") && jsonObject.getString("store_openclose").equals("open")) {
+                        Log.e("Harsh", "onResponse: store: " + "open");
+                        if (jsonObject.has("pgs_woo_api_add_to_cart_option") && jsonObject.getString("pgs_woo_api_add_to_cart_option").equals("enable")
+                                || jsonObject.has("pgs_woo_api_catalog_mode_option") && jsonObject.getString("pgs_woo_api_catalog_mode_option").equals("enable")
+                        ) {
+                            Constant.IS_ADD_TO_CART_ACTIVE = true;
+                            Config.IS_CATALOG_MODE_OPTION = false;
+                        }
+
+                    } else {
+                        Log.e("Harsh", "onResponse: store: " + "closed");
+                        Toast.makeText(this, R.string.store_closed, Toast.LENGTH_LONG).show();
+                        Constant.IS_ADD_TO_CART_ACTIVE = false;
+                        Config.IS_CATALOG_MODE_OPTION = true;
+                        showCart();
                     }
+
+                    /*else if (jsonObject.has("store_openclose") && jsonObject.getString("store_openclose").equals("close")) {
+                        Log.e("Harsh", "onResponse: store close: " + "Store is close");
+                        if (jsonObject.has("pgs_woo_api_add_to_cart_option") && jsonObject.getString("pgs_woo_api_add_to_cart_option").equals("enable")) {
+                            Log.e("Harsh", "onResponse: store close: " + "Add to cart disable");
+                            Constant.IS_ADD_TO_CART_ACTIVE = false;
+                        }
+                    }
+*/
 
                     if (homeRider.webViewPages != null && !homeRider.webViewPages.isEmpty()) {
                         Constant.WEBVIEWPAGES = new ArrayList<>();
@@ -708,7 +745,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
                     setCategoryList(homeRider.categoryBanners);
 
                     //set vertical banner
-                  //  setVerticalBannerList(homeRider.bannerAd);
+                    //  setVerticalBannerList(homeRider.bannerAd);
 
                     //set vertical banner Dynamically
                     setVerticalBannerListDynamically(homeRider.bannerAd);
@@ -766,7 +803,6 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
     }
 
 
-
     public void setText() {
         setBottomBar("home", svHome);
     }
@@ -791,6 +827,13 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
     }
 
     public void setConstantValue() {
+
+        if (homeRider.storeopenclose != null) {
+            Log.e("Harsh", "Store avability status: " + homeRider.storeopenclose);
+            Constant.STORE_OPEN_CLOSE = homeRider.storeopenclose;
+            Log.e("Harsh", "Store avability status: Constant:  " + Constant.STORE_OPEN_CLOSE);
+
+        }
 
         if (homeRider.pgsAppContactInfo != null) {
             if (homeRider.pgsAppContactInfo.addressLine1 != null) {
@@ -835,7 +878,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
         }
 
         if (homeRider.isWishlistActive != null) {
-            Log.e("Harsh", "Wishlist Active:"+ homeRider.isWishlistActive  );
+            Log.e("Harsh", "Wishlist Active:" + homeRider.isWishlistActive);
             Constant.IS_WISH_LIST_ACTIVE = homeRider.isWishlistActive;
         }
         if (homeRider.isYithFeaturedVideoActive != null) {
@@ -999,7 +1042,6 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
     }
 
 
-
     public void setCategoryList(List<Home.CategoryBanner> list) {
         if (list != null) {
             if (list.size() > 0) {
@@ -1077,7 +1119,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
             } else {
                 llVerticalBannerDynamic.setVisibility(View.GONE);
             }
-        }else {
+        } else {
             llVerticalBannerDynamic.setVisibility(View.GONE);
         }
     }
@@ -1640,7 +1682,6 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
         tvProductName_two.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
 
     }
-
 
 
     public void setCurrency(String response) {

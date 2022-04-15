@@ -412,7 +412,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         ButterKnife.bind(this);
-        Log.e(TAG, "Harsh: Quantity: OnCreate: "+categoryList.stockQuantity );
+        Log.e(TAG, "Harsh: Quantity: OnCreate: " + categoryList.stockQuantity);
         getIntentData();
         ivWishList.setActivetint(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECOND_COLOR)));
         ivWishList.setColors(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECOND_COLOR)), Color.parseColor(getPreferences().getString(Constant.APP_TRANSPARENT, Constant.SECOND_COLOR)));
@@ -462,7 +462,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
                             scrollY > oldScrollY) {
                         if (!categoryList.relatedIds.isEmpty()) {
                             if (isFirstLoad == true) {
-                               // getRelatedProduct();
+                                // getRelatedProduct();
                                 isFirstLoad = false;
                                 llRelatedItem.setVisibility(View.VISIBLE);
                             }
@@ -493,6 +493,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 
         getQuantityFromDatabase();
         tvAddNoteText.setText(getResources().getString(R.string.add) + " " + getResources().getString(R.string.comment));
+
+
     }
 
     private void getQuantityFromDatabase() {
@@ -504,7 +506,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
                 Log.e(TAG, "getQuantityFromDatabase: cart: Quantity: " + Qun);
 
                 String note = cartList.get(i).getNote();
-                Log.e(TAG, "getQuantityFromDatabase: cart : Note "+ note );
+                Log.e(TAG, "getQuantityFromDatabase: cart : Note " + note);
 
                 tvQuantity.setText(String.valueOf(Qun));
                 etnote.setText(note);
@@ -716,7 +718,9 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         } else {
             htmlPrice = (Html.fromHtml(categoryList.priceHtml) + "");
         }
+
         if (Config.IS_CATALOG_MODE_OPTION) {
+
             flBuyNow.setVisibility(View.GONE);
             flAddToCart.setVisibility(View.GONE);
         } else if (htmlPrice.equals("") && categoryList.price.equals("")) {
@@ -882,7 +886,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 //        }
 
         if (categoryList.inStock) {
-            Log.e(TAG, "Harsh: Quantity: Set Data: "+categoryList.stockQuantity );
+            Log.e(TAG, "Harsh: Quantity: Set Data: " + categoryList.stockQuantity);
             tvStock.setText(String.valueOf(categoryList.stockQuantity));
             tvAvailibility.setText(R.string.in_stock);
             tvAvailibility.setTextColor(getResources().getColor(R.color.green));
@@ -2061,8 +2065,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             if (categoryList.type.equals(RequestParamUtils.variable)) {
                 if (categoryList.manageStock == true) {
                     if (CheckIsVariationAvailable.inStock && CheckIsVariationAvailable.stockQuantity != 0) {
-                        Log.e(TAG, "Harsh: Quantity: Variation: "+categoryList.stockQuantity );
-                        Log.e(TAG, "Harsh: Quantity: Variation: CheckIsVariation: "+CheckIsVariationAvailable.stockQuantity );
+                        Log.e(TAG, "Harsh: Quantity: Variation: " + categoryList.stockQuantity);
+                        Log.e(TAG, "Harsh: Quantity: Variation: CheckIsVariation: " + CheckIsVariationAvailable.stockQuantity);
                         tvStock.setText(String.valueOf(CheckIsVariationAvailable.stockQuantity));
                         tvAvailibility.setText(R.string.in_stock);
                         tvAvailibility.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECOND_COLOR)));

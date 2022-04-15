@@ -595,6 +595,7 @@
 
     <string name="recently">RECENTLY</string>
     <string name="viewed_product">VIEWED PRODUCT</string>
+    <string name="store_closed" translatable="false">As of now, the shop is closed hence you cannot make a purchase</string>
 
 
 </resources>

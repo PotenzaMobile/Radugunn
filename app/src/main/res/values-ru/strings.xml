@@ -384,4 +384,6 @@
     <string name="recently">Относительно недавно</string>
     <string name="viewed_product">Просмотренные товары</string>
 
+    <string name="store_closed" translatable="false">На данный момент магазин закрыт, поэтому вы не можете совершить покупку</string>
+
 </resources>

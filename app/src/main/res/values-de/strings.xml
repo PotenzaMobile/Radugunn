@@ -389,6 +389,6 @@
 
     <string name="recently">VOR KURZEM</string>
     <string name="viewed_product">ANGEZEIGTES PRODUKT</string>
-
+    <string name="store_closed" translatable="false">Ab sofort ist der Shop geschlossen, daher können Sie keinen Einkauf tätigen</string>
 
 </resources>

@@ -394,4 +394,6 @@
     <string name="recently">RÉCEMMENT</string>
     <string name="viewed_product">PRODUIT VOIR</string>
 
+    <!--<string name="store_closed" translatable="false">Pour linstant, la boutique est fermée donc vous ne pouvez pas faire d'achat</string>-->
+
 </resources>

@@ -395,4 +395,6 @@
     <string name="recently">RECIENTEMENTE</string>
     <string name="viewed_product">PRODUCTO VISTO</string>
 
+    <string name="store_closed" translatable="false">A partir de ahora, la tienda está cerrada, por lo que no se puede realizar una compra</string>
+
 </resources>

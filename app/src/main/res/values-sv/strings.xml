@@ -400,4 +400,6 @@
     <string name="recently">NYLIGEN</string>
     <string name="viewed_product">VISAD PRODUKT</string>
 
+    <string name="store_closed" translatable="false">Från och med nu är butiken stängd så du kan inte göra ett köp</string>
+
 </resources>

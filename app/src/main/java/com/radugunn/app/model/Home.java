@@ -11,46 +11,46 @@ public class Home implements Serializable {
 
     @SerializedName("products_carousel")
     @Expose
-    public ProductsCarousel     productsCarousel;
+    public ProductsCarousel productsCarousel;
     @SerializedName("app_logo_light")
     @Expose
-    public String               appLogoLight;
+    public String appLogoLight;
     @SerializedName("app_logo")
     @Expose
-    public String               appLogo;
+    public String appLogo;
     @SerializedName("main_category")
     @Expose
-    public List<MainCategory>   mainCategory    = null;
+    public List<MainCategory> mainCategory = null;
     @SerializedName("main_slider")
     @Expose
-    public List<MainSlider>     mainSlider      = null;
+    public List<MainSlider> mainSlider = null;
     @SerializedName("category_banners")
     @Expose
     public List<CategoryBanner> categoryBanners = null;
     @SerializedName("banner_ad")
     @Expose
-    public List<BannerAd>       bannerAd        = null;
+    public List<BannerAd> bannerAd = null;
     @SerializedName("static_page")
     @Expose
-    public StaticPage           staticPage;
+    public StaticPage staticPage;
     @SerializedName("info_pages")
     @Expose
-    public List<InfoPage>       infoPages       = null;
+    public List<InfoPage> infoPages = null;
     @SerializedName("pgs_app_social_links")
     @Expose
-    public PgsAppSocialLinks    pgsAppSocialLinks;
+    public PgsAppSocialLinks pgsAppSocialLinks;
     @SerializedName("feature_box_status")
     @Expose
-    public String               featureBoxStatus;
+    public String featureBoxStatus;
     @SerializedName("feature_box_heading")
     @Expose
-    public String               featureBoxHeading;
+    public String featureBoxHeading;
     @SerializedName("feature_box")
     @Expose
-    public List<FeatureBox>     featureBox      = null;
+    public List<FeatureBox> featureBox = null;
     @SerializedName("pgs_app_contact_info")
     @Expose
-    public PgsAppContactInfo    pgsAppContactInfo;
+    public PgsAppContactInfo pgsAppContactInfo;
 
     @SerializedName("product_banners_cat_value")
     @Expose
@@ -58,64 +58,64 @@ public class Home implements Serializable {
 
     @SerializedName("product_banners_title")
     @Expose
-    public String              product_banners_title;
+    public String product_banners_title;
     @SerializedName("all_categories")
     @Expose
-    public List<AllCategory>   allCategories   = null;
+    public List<AllCategory> allCategories = null;
     @SerializedName("is_wishlist_active")
     @Expose
-    public Boolean             isWishlistActive;
+    public Boolean isWishlistActive;
     @SerializedName("is_yith_featured_video_active")
     @Expose
-    public Boolean             isYithFeaturedVideoActive;
+    public Boolean isYithFeaturedVideoActive;
     @SerializedName("is_currency_switcher_active")
     @Expose
-    public Boolean             isCurrencySwitcherActive;
+    public Boolean isCurrencySwitcherActive;
     @SerializedName("is_order_tracking_active")
     @Expose
-    public Boolean             isOrderTrackingActive;
+    public Boolean isOrderTrackingActive;
     @SerializedName("is_reward_points_active")
     @Expose
-    public Boolean             isRewardPointsActive;
+    public Boolean isRewardPointsActive;
     @SerializedName("is_abandoned_cart_active")
     @Expose
-    public Boolean             isAbandonedCartActive;
+    public Boolean isAbandonedCartActive;
     @SerializedName("is_guest_checkout_active")
     @Expose
-    public Boolean             isGuestCheckoutActive;
+    public Boolean isGuestCheckoutActive;
     @SerializedName("is_add_to_cart_btn_active")
     @Expose
-    public Boolean             isAddToCartBtnActive;
+    public Boolean isAddToCartBtnActive;
     @SerializedName("is_wpml_active")
     @Expose
-    public Boolean             isWpmlActive;
+    public Boolean isWpmlActive;
     @SerializedName("price_formate_options")
     @Expose
     public PriceFormateOptions priceFormateOptions;
     @SerializedName("ios_app_url")
     @Expose
-    public String              iosAppUrl;
+    public String iosAppUrl;
     @SerializedName("site_language")
     @Expose
-    public String              siteLanguage;
+    public String siteLanguage;
     @SerializedName("app_color")
     @Expose
-    public AppColor            appColor;
+    public AppColor appColor;
     @SerializedName("is_rtl")
     @Expose
-    public Boolean             isRtl;
+    public Boolean isRtl;
     @SerializedName("clockIcon")
     @Expose
-    public String              clockIcon;
+    public String clockIcon;
     @SerializedName("notificationIcon")
     @Expose
-    public String              notificationIcon;
+    public String notificationIcon;
     @SerializedName("is_verified")
     @Expose
-    public String              isVerified;
+    public String isVerified;
     @SerializedName("popular_products")
     @Expose
-    public List<Product>       popularProducts = null;
+    public List<Product> popularProducts = null;
 
     @SerializedName("custom_section")
     @Expose
@@ -155,6 +155,15 @@ public class Home implements Serializable {
     @Expose
     public PgsWooApiDeliverPincode pgsWooApiDeliverPincode;
 
+    @SerializedName("store_openclose")
+    @Expose
+    public String storeopenclose;
+
+
+    public Home withStoreOpenClose(String storeopenclose) {
+        this.storeopenclose = storeopenclose;
+        return this;
+    }
 
     public Home withScheduledSaleProducts(ScheduledSaleProducts scheduledSaleProducts) {
         this.scheduledSaleProducts = scheduledSaleProducts;
@@ -472,7 +481,7 @@ public class Home implements Serializable {
 
         @SerializedName("status")
         @Expose
-        public String        status;
+        public String status;
         @SerializedName("products")
         @Expose
         public List<Product> products = null;
@@ -607,22 +616,22 @@ public class Home implements Serializable {
 
         @SerializedName("description")
         @Expose
-        public String             description;
+        public String description;
         @SerializedName("id")
         @Expose
-        public Integer            id;
+        public Integer id;
         @SerializedName("image")
         @Expose
         public CategoryList.Image image;
         @SerializedName("name")
         @Expose
-        public String             name;
+        public String name;
         @SerializedName("parent")
         @Expose
-        public Integer            parent;
+        public Integer parent;
         @SerializedName("slug")
         @Expose
-        public String             slug;
+        public String slug;
 
         public AllCategory withDescription(String description) {
             this.description = description;
@@ -794,19 +803,19 @@ public class Home implements Serializable {
 
         @SerializedName("status")
         @Expose
-        public String        status;
+        public String status;
         @SerializedName("title")
         @Expose
-        public String        title;
+        public String title;
         @SerializedName("orderby")
         @Expose
-        public String        orderby;
+        public String orderby;
         @SerializedName("order")
         @Expose
-        public String        order;
+        public String order;
         @SerializedName("screen_order")
         @Expose
-        public Integer       screenOrder;
+        public Integer screenOrder;
         @SerializedName("products")
         @Expose
         public List<Product> products = null;
@@ -886,7 +895,6 @@ public class Home implements Serializable {
 
     }
 
-
     public class MainSlider {
 
         @SerializedName("upload_image_id")
@@ -915,7 +923,6 @@ public class Home implements Serializable {
         }
 
     }
-
 
     public class PgsAppContactInfo {
 
@@ -970,7 +977,6 @@ public class Home implements Serializable {
 
     }
 
-
     public class PgsAppSocialLinks {
 
         @SerializedName("facebook")
@@ -1024,24 +1030,23 @@ public class Home implements Serializable {
 
     }
 
-
     public class PopularProducts {
 
         @SerializedName("status")
         @Expose
-        public String        status;
+        public String status;
         @SerializedName("title")
         @Expose
-        public String        title;
+        public String title;
         @SerializedName("orderby")
         @Expose
-        public String        orderby;
+        public String orderby;
         @SerializedName("order")
         @Expose
-        public String        order;
+        public String order;
         @SerializedName("screen_order")
         @Expose
-        public Integer       screenOrder;
+        public Integer screenOrder;
         @SerializedName("products")
         @Expose
         public List<Product> products = null;
@@ -1077,7 +1082,6 @@ public class Home implements Serializable {
         }
 
     }
-
 
     public class Price {
 
@@ -1132,27 +1136,26 @@ public class Home implements Serializable {
 
     }
 
-
     public class PriceFormateOptions {
 
         @SerializedName("decimal_separator")
         @Expose
-        public String  decimalSeparator;
+        public String decimalSeparator;
         @SerializedName("thousand_separator")
         @Expose
-        public String  thousandSeparator;
+        public String thousandSeparator;
         @SerializedName("decimals")
         @Expose
         public Integer decimals;
         @SerializedName("currency_pos")
         @Expose
-        public String  currencyPos;
+        public String currencyPos;
         @SerializedName("currency_symbol")
         @Expose
-        public String  currencySymbol;
+        public String currencySymbol;
         @SerializedName("currency_code")
         @Expose
-        public String  currencyCode;
+        public String currencyCode;
 
         public PriceFormateOptions withDecimalSeparator(String decimalSeparator) {
             this.decimalSeparator = decimalSeparator;
@@ -1186,99 +1189,98 @@ public class Home implements Serializable {
 
     }
 
-
     public class Product {
 
         @SerializedName("title")
         @Expose
-        public String  title;
+        public String title;
         @SerializedName("image")
         @Expose
-        public String  image;
+        public String image;
         @SerializedName("price_html")
         @Expose
-        public String  priceHtml;
+        public String priceHtml;
         @SerializedName("price")
         @Expose
-        public String  price;
+        public String price;
         @SerializedName("rating")
         @Expose
-        public String  rating;
+        public String rating;
         @SerializedName("app_thumbnail")
         @Expose
-        public String  appThumbnail;
+        public String appThumbnail;
         @SerializedName("id")
         @Expose
-        public String  id;
+        public String id;
         @SerializedName("name")
         @Expose
-        public String  name;
+        public String name;
         @SerializedName("slug")
         @Expose
-        public String  slug;
+        public String slug;
         @SerializedName("permalink")
         @Expose
-        public String  permalink;
+        public String permalink;
         @SerializedName("date_created")
         @Expose
-        public String  dateCreated;
+        public String dateCreated;
         @SerializedName("date_created_gmt")
         @Expose
-        public String  dateCreatedGmt;
+        public String dateCreatedGmt;
         @SerializedName("date_modified")
         @Expose
-        public String  dateModified;
+        public String dateModified;
         @SerializedName("date_modified_gmt")
         @Expose
-        public String  dateModifiedGmt;
+        public String dateModifiedGmt;
         @SerializedName("type")
         @Expose
-        public String  type;
+        public String type;
         @SerializedName("status")
         @Expose
-        public String  status;
+        public String status;
         @SerializedName("featured")
         @Expose
         public boolean featured;
         @SerializedName("catalog_visibility")
         @Expose
-        public String  catalogVisibility;
+        public String catalogVisibility;
         @SerializedName("description")
         @Expose
-        public String  description;
+        public String description;
         @SerializedName("short_description")
         @Expose
-        public String  shortDescription;
+        public String shortDescription;
         @SerializedName("sku")
         @Expose
-        public String  sku;
+        public String sku;
         @SerializedName("tax_price")
         @Expose
-        public String  taxPrice;
+        public String taxPrice;
         @SerializedName("price_excluding_tax")
         @Expose
-        public String  priceExcludingTax;
+        public String priceExcludingTax;
         @SerializedName("price_including_tax")
         @Expose
-        public String  priceIncludingTax;
+        public String priceIncludingTax;
         @SerializedName("regular_price")
         @Expose
-        public String  regularPrice;
+        public String regularPrice;
         @SerializedName("sale_price")
         @Expose
-        public String  salePrice;
+        public String salePrice;
         @SerializedName("date_on_sale_from")
         @Expose
-        public Object  dateOnSaleFrom;
+        public Object dateOnSaleFrom;
         @SerializedName("date_on_sale_from_gmt")
         @Expose
-        public Object  dateOnSaleFromGmt;
+        public Object dateOnSaleFromGmt;
         @SerializedName("date_on_sale_to")
         @Expose
-        public Object  dateOnSaleTo;
+        public Object dateOnSaleTo;
         @SerializedName("date_on_sale_to_gmt")
         @Expose
-        public Object  dateOnSaleToGmt;
+        public Object dateOnSaleToGmt;
         @SerializedName("on_sale")
         @Expose
         public boolean onSale;
@@ -1287,7 +1289,7 @@ public class Home implements Serializable {
         public boolean purchasable;
         @SerializedName("total_sales")
         @Expose
-        public String  totalSales;
+        public String totalSales;
         @SerializedName("virtual")
         @Expose
         public boolean virtual;
@@ -1297,127 +1299,127 @@ public class Home implements Serializable {
 
         @SerializedName("download_limit")
         @Expose
-        public int                          downloadLimit;
+        public int downloadLimit;
         @SerializedName("download_expiry")
         @Expose
-        public int                          downloadExpiry;
+        public int downloadExpiry;
         @SerializedName("external_url")
         @Expose
-        public String                       externalUrl;
+        public String externalUrl;
         @SerializedName("button_text")
         @Expose
-        public String                       buttonText;
+        public String buttonText;
         @SerializedName("tax_status")
         @Expose
-        public String                       taxStatus;
+        public String taxStatus;
         @SerializedName("tax_class")
         @Expose
-        public String                       taxClass;
+        public String taxClass;
         @SerializedName("manage_stock")
         @Expose
-        public boolean                      manageStock;
+        public boolean manageStock;
         @SerializedName("stock_quantity")
         @Expose
-        public Object                       stockQuantity;
+        public Object stockQuantity;
         @SerializedName("in_stock")
         @Expose
-        public boolean                      inStock;
+        public boolean inStock;
         @SerializedName("backorders")
         @Expose
-        public String                       backorders;
+        public String backorders;
         @SerializedName("backorders_allowed")
         @Expose
-        public boolean                      backordersAllowed;
+        public boolean backordersAllowed;
         @SerializedName("backordered")
         @Expose
-        public boolean                      backordered;
+        public boolean backordered;
         @SerializedName("sold_individually")
         @Expose
-        public boolean                      soldIndividually;
+        public boolean soldIndividually;
         @SerializedName("weight")
         @Expose
-        public String                       weight;
+        public String weight;
         @SerializedName("dimensions")
         @Expose
-        public Dimensions                   dimensions;
+        public Dimensions dimensions;
         @SerializedName("shipping_required")
         @Expose
-        public boolean                      shippingRequired;
+        public boolean shippingRequired;
         @SerializedName("shipping_taxable")
         @Expose
-        public boolean                      shippingTaxable;
+        public boolean shippingTaxable;
         @SerializedName("shipping_class")
         @Expose
-        public String                       shippingClass;
+        public String shippingClass;
         @SerializedName("shipping_class_id")
         @Expose
-        public int                          shippingClassId;
+        public int shippingClassId;
         @SerializedName("reviews_allowed")
         @Expose
-        public boolean                      reviewsAllowed;
+        public boolean reviewsAllowed;
         @SerializedName("average_rating")
         @Expose
-        public String                       averageRating;
+        public String averageRating;
         @SerializedName("rating_count")
         @Expose
-        public int                          ratingCount;
+        public int ratingCount;
         @SerializedName("related_ids")
         @Expose
-        public List<Integer>                relatedIds        = null;
+        public List<Integer> relatedIds = null;
         @SerializedName("upsell_ids")
         @Expose
-        public List<Object>                 upsellIds         = null;
+        public List<Object> upsellIds = null;
         @SerializedName("cross_sell_ids")
         @Expose
-        public List<Object>                 crossSellIds      = null;
+        public List<Object> crossSellIds = null;
         @SerializedName("parent_id")
         @Expose
-        public int                          parentId;
+        public int parentId;
         @SerializedName("purchase_note")
         @Expose
-        public String                       purchaseNote;
+        public String purchaseNote;
         @SerializedName("categories")
         @Expose
-        public List<Category>               categories        = null;
+        public List<Category> categories = null;
         @SerializedName("tags")
         @Expose
-        public List<Object>                 tags              = null;
+        public List<Object> tags = null;
         @SerializedName("images")
         @Expose
-        public List<CategoryList.Image>     images            = null;
+        public List<CategoryList.Image> images = null;
         @SerializedName("attributes")
         @Expose
-        public List<CategoryList.Attribute> attributes        = null;
+        public List<CategoryList.Attribute> attributes = null;
         @SerializedName("default_attributes")
         @Expose
-        public List<Object>                 defaultAttributes = null;
+        public List<Object> defaultAttributes = null;
         @SerializedName("variations")
         @Expose
-        public List<Object>                 variations        = null;
+        public List<Object> variations = null;
         @SerializedName("grouped_products")
         @Expose
-        public List<Object>                 groupedProducts   = null;
+        public List<Object> groupedProducts = null;
         @SerializedName("menu_order")
         @Expose
-        public int                          menuOrder;
+        public int menuOrder;
         /* @SerializedName("meta_data")
          @Expose
          public List<MetaDatum> metaData = null;*/
         @SerializedName("rewards_message")
         @Expose
-        public String                       rewardsMessage;
+        public String rewardsMessage;
         @SerializedName("addition_info_html")
         @Expose
-        public String                       additionInfoHtml;
+        public String additionInfoHtml;
         @SerializedName("featured_video")
         @Expose
-        public FeaturedVideo                featuredVideo;
+        public FeaturedVideo featuredVideo;
         @SerializedName("percentage")
         @Expose
-        public int                          percentage;
+        public int percentage;
         @SerializedName("deal_life")
         @Expose
-        public DealLife                     dealLife;
+        public DealLife dealLife;
 
         @SerializedName("seller_info")
         @Expose
@@ -1804,7 +1806,7 @@ public class Home implements Serializable {
 
         @SerializedName("id")
         @Expose
-        public int    id;
+        public int id;
         @SerializedName("name")
         @Expose
         public String name;
@@ -1862,7 +1864,7 @@ public class Home implements Serializable {
 
         @SerializedName("id")
         @Expose
-        public int    id;
+        public int id;
         @SerializedName("key")
         @Expose
         public String key;
@@ -1887,7 +1889,6 @@ public class Home implements Serializable {
 
     }
 
-
     public class FeaturedVideo {
 
         @SerializedName("url")
@@ -1895,7 +1896,7 @@ public class Home implements Serializable {
         public String url;
         @SerializedName("product_id")
         @Expose
-        public int    productId;
+        public int productId;
         @SerializedName("video_type")
         @Expose
         public String videoType;
@@ -1913,19 +1914,19 @@ public class Home implements Serializable {
 
         @SerializedName("feature_products")
         @Expose
-        public FeatureProducts     featureProducts;
+        public FeatureProducts featureProducts;
         @SerializedName("recent_products")
         @Expose
-        public RecentProducts      recentProducts;
+        public RecentProducts recentProducts;
         @SerializedName("special_deal_products")
         @Expose
         public SpecialDealProducts specialDealProducts;
         @SerializedName("popular_products")
         @Expose
-        public PopularProducts     popularProducts;
+        public PopularProducts popularProducts;
         @SerializedName("top_rated_products")
         @Expose
-        public TopRatedProducts    topRatedProducts;
+        public TopRatedProducts topRatedProducts;
 
         public ProductsCarousel withFeatureProducts(FeatureProducts featureProducts) {
             this.featureProducts = featureProducts;
@@ -1958,13 +1959,13 @@ public class Home implements Serializable {
 
         @SerializedName("status")
         @Expose
-        public String        status;
+        public String status;
         @SerializedName("title")
         @Expose
-        public String        title;
+        public String title;
         @SerializedName("screen_order")
         @Expose
-        public int           screenOrder;
+        public int screenOrder;
         @SerializedName("products")
         @Expose
         public List<Product> products = null;
@@ -1994,19 +1995,19 @@ public class Home implements Serializable {
 
         @SerializedName("status")
         @Expose
-        public String        status;
+        public String status;
         @SerializedName("title")
         @Expose
-        public String        title;
+        public String title;
         @SerializedName("orderby")
         @Expose
-        public String        orderby;
+        public String orderby;
         @SerializedName("order")
         @Expose
-        public String        order;
+        public String order;
         @SerializedName("screen_order")
         @Expose
-        public Integer       screenOrder;
+        public Integer screenOrder;
         @SerializedName("products")
         @Expose
         public List<Product> products = null;
@@ -2043,24 +2044,23 @@ public class Home implements Serializable {
 
     }
 
-
     public class SpecialDealProducts {
 
         @SerializedName("status")
         @Expose
-        public String        status;
+        public String status;
         @SerializedName("title")
         @Expose
-        public String        title;
+        public String title;
         @SerializedName("orderby")
         @Expose
-        public String        orderby;
+        public String orderby;
         @SerializedName("order")
         @Expose
-        public String        order;
+        public String order;
         @SerializedName("screen_order")
         @Expose
-        public Integer       screenOrder;
+        public Integer screenOrder;
         @SerializedName("products")
         @Expose
         public List<Product> products = null;
@@ -2157,31 +2157,31 @@ public class Home implements Serializable {
 
         @SerializedName("code")
         @Expose
-        public String  code;
+        public String code;
         @SerializedName("id")
         @Expose
-        public String  id;
+        public String id;
         @SerializedName("native_name")
         @Expose
-        public String  nativeName;
+        public String nativeName;
         @SerializedName("active")
         @Expose
-        public int     active;
+        public int active;
         @SerializedName("default_locale")
         @Expose
-        public String  defaultLocale;
+        public String defaultLocale;
         @SerializedName("translated_name")
         @Expose
-        public String  translatedName;
+        public String translatedName;
         @SerializedName("language_code")
         @Expose
-        public String  languageCode;
+        public String languageCode;
         @SerializedName("disp_language")
         @Expose
-        public String  dispLanguage;
+        public String dispLanguage;
         @SerializedName("site_language")
         @Expose
-        public String  siteLanguage;
+        public String siteLanguage;
         @SerializedName("is_rtl")
         @Expose
         public boolean isRtl;
