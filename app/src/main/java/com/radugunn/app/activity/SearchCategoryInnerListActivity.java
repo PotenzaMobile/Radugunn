@@ -87,10 +87,15 @@ public class SearchCategoryInnerListActivity extends BaseActivity implements OnI
         }
 
         for (int j = 0; j < list.size(); j++) {
+
             List<Home.AllCategory> tempList = new ArrayList<>();
             for (int k = 0; k < Constant.MAINCATEGORYLIST.size(); k++) {
                 if (list.get(j).id.intValue() == Constant.MAINCATEGORYLIST.get(k).parent.intValue()) {
                     tempList.add(Constant.MAINCATEGORYLIST.get(k));
+                }
+
+                if (list.get(j).product_count.equals("0")){
+                    list.remove(j);
                 }
             }
             childList.put(list.get(j).id, tempList);

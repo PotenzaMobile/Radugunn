@@ -730,6 +730,12 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
                         if (homeRider.allCategories.get(i).name.equals("Uncategorized")) {
                             homeRider.allCategories.remove(i);
                         }
+
+                       /* if (homeRider.allCategories.get(i).product_count.contains("0")){
+
+                            homeRider.allCategories.remove(i);
+                        }*/
+
                     }
 
                     Constant.MAINCATEGORYLIST.clear();

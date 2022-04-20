@@ -633,6 +633,16 @@ public class Home implements Serializable {
         @Expose
         public String slug;
 
+        @SerializedName("product_count")
+        @Expose
+        public String product_count;
+
+
+        public AllCategory withProductCount(String product_count) {
+            this.product_count = product_count;
+            return this;
+        }
+
         public AllCategory withDescription(String description) {
             this.description = description;
             return this;

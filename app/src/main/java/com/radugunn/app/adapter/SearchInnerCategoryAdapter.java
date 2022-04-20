@@ -110,7 +110,6 @@ public class SearchInnerCategoryAdapter extends RecyclerView.Adapter<SearchInner
 
                             expandList.get(previousPosition).ivGo.startAnimation(rotate);
                             expandList.put(previousPosition, null);
-
                         }
 
                         previousPosition = position;
