@@ -29,3 +29,9 @@ versionCode 5
 versionName "5.0"
 Password: Radugunn
 Alias : key0
+
+Date : 20/04/2022
+versionCode 6
+versionName "6.0"
+Password: Radugunn
+Alias : key0
