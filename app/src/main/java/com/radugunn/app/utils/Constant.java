@@ -94,6 +94,8 @@ public class Constant {
 
     public static String STORE_OPEN_CLOSE = "store_openclose";
 
+    public static String PlayStore_update = "playStoreUpdate";
+
     //Todo:Used For Pincode Setting
     public static Home.SettingOptions settingOptions = new Home().getSettingOption();
 

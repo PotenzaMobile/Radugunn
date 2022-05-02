@@ -163,7 +163,7 @@ public class InfiniteScrollActivity extends BaseActivity implements OnItemClickL
         getHomeData();
         initDrawer();
         settvImage();
-        showNotification();
+        showNews();
         showCart();
         swipeView();
         setCategoryList();

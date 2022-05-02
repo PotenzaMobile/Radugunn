@@ -10,7 +10,6 @@
     android:orientation="vertical"
     tools:context="com.radugunn.app.activity.HomeActivity">
 
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
@@ -333,7 +332,18 @@
                     android:layout_marginEnd="@dimen/value_10"
                     android:layout_marginRight="@dimen/value_10"
                     android:padding="@dimen/value_1"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_news" />
+
+                <ImageView
+                    android:id="@+id/ivNews"
+                    android:layout_width="@dimen/value_15"
+                    android:layout_height="@dimen/value_15"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/value_10"
+                    android:padding="@dimen/value_1"
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/ic_notification_white" />
 
                 <FrameLayout
                     android:id="@+id/flCart"

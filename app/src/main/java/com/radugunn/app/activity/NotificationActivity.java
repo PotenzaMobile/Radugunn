@@ -175,7 +175,6 @@ public class    NotificationActivity extends BaseActivity implements OnItemClick
             Toast.makeText(this, R.string.internet_not_working, Toast.LENGTH_LONG).show();
         }
 
-
     }
 
     public void deleteNotification(JSONObject jsonObject) {

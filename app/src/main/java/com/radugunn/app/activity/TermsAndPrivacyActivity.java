@@ -63,7 +63,6 @@ public class TermsAndPrivacyActivity extends BaseActivity implements OnResponseL
             Toast.makeText(this, R.string.internet_not_working, Toast.LENGTH_LONG).show();
         }
 
-
     }
 
     @Override

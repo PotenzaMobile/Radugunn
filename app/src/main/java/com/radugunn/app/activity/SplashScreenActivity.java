@@ -63,6 +63,11 @@ public class SplashScreenActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
+
+
+
+        getPreferences().edit().putBoolean(Constant.PlayStore_update,true).apply();
+        
         verifyPurchase();
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         tvSplashText.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));

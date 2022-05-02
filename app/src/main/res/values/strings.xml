@@ -596,6 +596,10 @@
     <string name="recently">RECENTLY</string>
     <string name="viewed_product">VIEWED PRODUCT</string>
     <string name="store_closed" translatable="false">As of now, the shop is closed hence you cannot make a purchase</string>
+    <string name="news" translatable="false">News</string>
+    <string name="update" translatable="false">Update</string>
+    <string name="update_application" translatable="false">Update Application</string>
+    <string name="new_version_check" translatable="false">New version of this application is available on play store click update to install updated application.</string>
 
 
 </resources>

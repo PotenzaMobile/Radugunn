@@ -240,7 +240,6 @@ public class WebviewActivity extends BaseActivity implements OnResponseListner {
     //Custom WebViewClient
     public class myWebClient extends WebViewClient {
 
-
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             // TODO Auto-generated method stub

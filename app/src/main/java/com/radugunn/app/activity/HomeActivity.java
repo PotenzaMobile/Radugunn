@@ -242,6 +242,8 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
 
     Home homeRider;
 
+    private static final String TAG = "HomeActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -257,6 +259,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
             Config.IS_RTL = getPreferences().getBoolean(Constant.RTL, false);
             setHomecolorTheme(getPreferences().getString(Constant.HEADER_COLOR, Constant.HEAD_COLOR));
             setScreenLayoutDirection();
+            getPlaystoreVersion();
             settvImage();
             ivDrawer.setImageDrawable(getResources().getDrawable(R.drawable.ic_drawer));
             // Get token and Save Notification Token
@@ -277,8 +280,11 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
             setSixReasonAdapter();
             setRecentViewAdapter();
 //            getRecentData();
+            showNews();
+
         }
     }
+
 
     @Override
     protected void onStart() {
@@ -631,14 +637,6 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
                         showCart();
                     }
 
-                    /*else if (jsonObject.has("store_openclose") && jsonObject.getString("store_openclose").equals("close")) {
-                        Log.e("Harsh", "onResponse: store close: " + "Store is close");
-                        if (jsonObject.has("pgs_woo_api_add_to_cart_option") && jsonObject.getString("pgs_woo_api_add_to_cart_option").equals("enable")) {
-                            Log.e("Harsh", "onResponse: store close: " + "Add to cart disable");
-                            Constant.IS_ADD_TO_CART_ACTIVE = false;
-                        }
-                    }
-*/
 
                     if (homeRider.webViewPages != null && !homeRider.webViewPages.isEmpty()) {
                         Constant.WEBVIEWPAGES = new ArrayList<>();
@@ -730,12 +728,6 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
                         if (homeRider.allCategories.get(i).name.equals("Uncategorized")) {
                             homeRider.allCategories.remove(i);
                         }
-
-                       /* if (homeRider.allCategories.get(i).product_count.contains("0")){
-
-                            homeRider.allCategories.remove(i);
-                        }*/
-
                     }
 
                     Constant.MAINCATEGORYLIST.clear();
@@ -768,13 +760,17 @@ public class HomeActivity extends BaseActivity implements OnItemClickListner, On
                     editor.putString(Constant.APPLOGO_LIGHT, homeRider.appLogoLight);
                     editor.commit();
                     settvImage();
-                    if (homeRider.notificationIcon != null && homeRider.notificationIcon.contains("https:")) {
-                        Picasso.get().load(homeRider.notificationIcon).into(ivNotification);
+                   /* if (homeRider.notificationIcon != null && homeRider.notificationIcon.contains("https:")) {
+                        Log.e(TAG, "onResponse: Harsh Notification: "+homeRider.notificationIcon );
+                        //Picasso.get().load(homeRider.notificationIcon).into(ivNotification);
+                        Picasso.get().load(R.drawable.ic_notification_black).into(ivNotification);
                     } else {
-                        Picasso.get().load("https:" + homeRider.notificationIcon).into(ivNotification);
-                    }
-
-                    ivNotification.setColorFilter(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+                        Log.e(TAG, "onResponse: Harsh Notification else: "+homeRider.notificationIcon );
+//                        Picasso.get().load("https:" + homeRider.notificationIcon).into(ivNotification);
+                        Picasso.get().load(R.drawable.ic_notification_black).into(ivNotification);
+                    }*/
+                    //setNewsWebViewData();
+                   // ivNotification.setColorFilter(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
 
 
                     new Handler().post(new Runnable() {

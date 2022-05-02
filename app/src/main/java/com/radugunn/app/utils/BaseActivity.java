@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,11 +21,14 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -40,6 +44,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
@@ -56,6 +61,7 @@ import com.radugunn.app.activity.AccountActivity;
 import com.radugunn.app.activity.CartActivity;
 import com.radugunn.app.activity.HomeActivity;
 import com.radugunn.app.activity.InfiniteScrollActivity;
+import com.radugunn.app.activity.NewsActivity;
 import com.radugunn.app.activity.NotificationActivity;
 import com.radugunn.app.activity.RewardsActivity;
 import com.radugunn.app.activity.SearchCategoryListActivity;
@@ -83,24 +89,28 @@ import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class BaseActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, OnResponseListner {
 
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 101;
     private static final String TAG = BaseActivity.class.getSimpleName();
-    public ImageView ivNotification, ivSearch;
+    public ImageView ivNotification, ivSearch, ivNews;
     public SharedPreferences sharedpreferences;
     public CustomProgressDialog progressDialog;
     public String lat, lon;
@@ -465,6 +475,12 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
         ImageView ivNotification = findViewById(R.id.ivNotification);
         if (ivNotification != null) {
             ivNotification.setColorFilter(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+
+        }
+
+        ImageView ivNews = findViewById(R.id.ivNews);
+        if (ivNews != null) {
+            ivNews.setColorFilter(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
 
         }
 
@@ -871,6 +887,19 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
     }
+
+    public void showNews() {
+        ivNews = findViewById(R.id.ivNews);
+        ivNews.setVisibility(View.VISIBLE);
+        ivNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BaseActivity.this, NewsActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
 
     public void showBackButton() {
         ivBack = (ImageView) findViewById(R.id.ivBack);
@@ -1458,6 +1487,98 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString(RequestParamUtils.CUSTOMER, "");
         editor.commit();
+    }
+
+
+    //Playstore Update
+    public void getPlaystoreVersion() {
+        if (!getPreferences().getBoolean(Constant.PlayStore_update, false)) {
+            return;
+        }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            //Background work here
+            String newVersion = null;
+            try {
+                newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + BaseActivity.this.getPackageName() + "&hl=it")
+                        .timeout(30000)
+                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                        .referrer("http://www.google.com")
+                        .get()
+                        .select(".hAyfc .htlgb")
+                        .get(7)
+                        .ownText();
+                Log.e(TAG, "Harsh: PlaystoreVersion: " + newVersion);
+            } catch (Exception e) {
+                Log.e(TAG, "Exception::" + Arrays.toString(e.getStackTrace()));
+            }
+
+            Log.e(TAG, "Harsh: getPlaystoreVersion: New Version: " + newVersion);
+
+            String finalNewVersion = newVersion;
+
+            Log.e(TAG, "Harsh: getPlaystoreVersion: Final New Version " + finalNewVersion);
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //UI Thread work here
+                    String currentVersion = null;
+
+                    try {
+                        currentVersion = BaseActivity.this.getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+                        Log.e(TAG, "Harsh: Currentversion" + currentVersion);
+                        if (finalNewVersion != null && !finalNewVersion.isEmpty()) {
+                            Log.e(TAG, "Harsh: Final Compare:  " + "Current version " + currentVersion + "playstore version " + finalNewVersion);
+                            if (Float.parseFloat(currentVersion) < Float.parseFloat(finalNewVersion)) {
+                                displayUpdateDialogu();
+                            }
+                        }
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+        });
+    }
+
+    public void displayUpdateDialogu() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_new_update, null);
+        dialogBuilder.setView(dialogView);
+        AlertDialog alertDialog = dialogBuilder.create();
+        TextView title = dialogView.findViewById(R.id.tv_title);
+        TextView tv_update = dialogView.findViewById(R.id.tv_update);
+        TextView tv_cancel = dialogView.findViewById(R.id.tv_cancel);
+        title.setBackgroundColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+        tv_update.setBackgroundColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+        tv_cancel.setBackgroundColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+
+        tv_update.setOnClickListener(view -> {
+            openPlaystore();
+        });
+        tv_cancel.setOnClickListener(view -> {
+            alertDialog.dismiss();
+        });
+        getPreferences().edit().putBoolean(Constant.PlayStore_update, false).apply();
+        alertDialog.show();
+    }
+
+    public void openPlaystore() {
+        Uri uri = Uri.parse("market://details?id=" + this.getPackageName());
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        try {
+            startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + this.getPackageName())));
+        }
     }
 
 

@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name="com.radugunn.app.utils.MyApplication"
+        android:name=".utils.MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,22 +25,27 @@
         android:theme="@style/Theme.DesignDemo"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name="com.radugunn.app.activity.TestActivity">
-    <!--            <intent-filter>-->
-    <!--                <action android:name="android.intent.action.MAIN" />-->
+        <activity
+            android:name=".activity.NewsActivity"
+            android:exported="false" />
+        <activity android:name=".activity.TestActivity">
 
-    <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-    <!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-        <activity android:name="com.radugunn.app.activity.OrderCancelActivity" />
-        <activity android:name="com.radugunn.app.activity.RepaymentActivity" />
+        <activity android:name=".activity.OrderCancelActivity" />
+        <activity android:name=".activity.RepaymentActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
         <activity
-            android:name="com.radugunn.app.activity.IntroSliderActivity"
+            android:name=".activity.IntroSliderActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -59,7 +64,7 @@
             android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
             android:value="false" /> <!-- Register the BroadcastReceiver -->
         <receiver
-            android:name="com.radugunn.app.fcm.AppIndexingUpdateReceiver"
+            android:name=".fcm.AppIndexingUpdateReceiver"
             android:exported="true"
             android:permission="com.google.android.gms.permission.APPINDEXING">
             <intent-filter>
@@ -67,14 +72,14 @@
             </intent-filter>
         </receiver> <!-- Grant the AppIndexingUpdateService permission and enable it to run after being triggered -->
         <service
-            android:name="com.radugunn.app.fcm.AppIndexingUpdateService"
+            android:name=".fcm.AppIndexingUpdateService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service android:name="com.radugunn.app.fcm.MyFirebaseMessagingService">
+        <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.radugunn.app.fcm.MyFirebaseInstanceIDService">
+        <service android:name=".fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -101,20 +106,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.radugunn.app.activity.HomeActivity"
+            android:name=".activity.HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.InfiniteScrollActivity"
+            android:name=".activity.InfiniteScrollActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.radugunn.app.utils.BaseActivity" />
+        <activity android:name=".utils.BaseActivity" />
         <activity
-            android:name="com.radugunn.app.activity.SplashScreenActivity"
+            android:name=".activity.SplashScreenActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
@@ -141,171 +146,171 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.radugunn.app.activity.AccountActivity"
+            android:name=".activity.AccountActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.CartActivity"
+            android:name=".activity.CartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.MyOrderActivity"
+            android:name=".activity.MyOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.MyAddressActivity"
+            android:name=".activity.MyAddressActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.AddAddressActivity"
+            android:name=".activity.AddAddressActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.AccountSettingActivity"
+            android:name=".activity.AccountSettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.ChangePasswordActivity"
+            android:name=".activity.ChangePasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.DeactiveAccountActivity"
+            android:name=".activity.DeactiveAccountActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.AboutUsActivity"
+            android:name=".activity.AboutUsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.ContactUsActivity"
+            android:name=".activity.ContactUsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.OrderDetailActivity"
+            android:name=".activity.OrderDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.CategoryListActivity"
+            android:name=".activity.CategoryListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.FilterActivity"
+            android:name=".activity.FilterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.SearchFromHomeActivity"
+            android:name=".activity.SearchFromHomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.SearchCategoryListActivity"
+            android:name=".activity.SearchCategoryListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.ProductDetailActivity"
+            android:name=".activity.ProductDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.radugunn.app.activity.NotificationActivity"
+            android:name=".activity.NotificationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.RewardsActivity"
+            android:name=".activity.RewardsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.WishListActivity"
+            android:name=".activity.WishListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.SignUpActivity"
+            android:name=".activity.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name="com.radugunn.app.activity.LogInActivity"
+            android:name=".activity.LogInActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
-            android:name="com.radugunn.app.activity.TermsAndPrivacyActivity"
+            android:name=".activity.TermsAndPrivacyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.SellerInfoActivity"
+            android:name=".activity.SellerInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.radugunn.app.activity.SellerReviewActivity"
+            android:name=".activity.SellerReviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.SearchCategoryInnerListActivity"
+            android:name=".activity.SearchCategoryInnerListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.ContactSellerActivity"
+            android:name=".activity.ContactSellerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.SellerMoreInfoActivity"
+            android:name=".activity.SellerMoreInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.ProductQuickDetailActivity"
+            android:name=".activity.ProductQuickDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.ImageViewerActivity"
+            android:name=".activity.ImageViewerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name="com.radugunn.app.activity.InfoPageDetailActivity"
+            android:name=".activity.InfoPageDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.WebviewActivity"
+            android:name=".activity.WebviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.ThankYouActivity"
+            android:name=".activity.ThankYouActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name="com.radugunn.app.activity.RateAndReviewActivity"
+            android:name=".activity.RateAndReviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.MyPointActivity"
+            android:name=".activity.MyPointActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.DownloadActivity"
+            android:name=".activity.DownloadActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.VideoViewActivity"
+            android:name=".activity.VideoViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.radugunn.app.activity.CheckAllActivity" />
+        <activity android:name=".activity.CheckAllActivity" />
         <activity
-            android:name="com.radugunn.app.activity.BlogActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.radugunn.app.activity.StoreFinderActivity"
+            android:name=".activity.BlogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.BlogDescriptionActivity"
+            android:name=".activity.StoreFinderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.BlogDescriptionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name="com.radugunn.app.activity.WebDataActivity"
+            android:name=".activity.WebDataActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.WebviewWalletAddActivity"
+            android:name=".activity.WebviewWalletAddActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.radugunn.app.activity.WalletTransactionActivity"
+            android:name=".activity.WalletTransactionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

@@ -386,4 +386,9 @@
 
     <string name="store_closed" translatable="false">На данный момент магазин закрыт, поэтому вы не можете совершить покупку</string>
 
+    <string name="news" translatable="false">Новости</string>
+    <string name="update" translatable="false">Обновлять</string>
+    <string name="update_application" translatable="false">Обновить приложение</string>
+    <string name="new_version_check" translatable="false">Новая версия этого приложения доступна в магазине Play. Нажмите «Обновить», чтобы установить обновленное приложение.</string>
+
 </resources>

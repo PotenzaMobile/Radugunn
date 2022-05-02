@@ -490,6 +490,7 @@ public class FilterActivity extends BaseActivity implements OnItemClickListner, 
             jsonObject.put(RequestParamUtils.CATEGORY, categoryId);
             jsonObject.put(RequestParamUtils.maxPrice, FilterSelectedList.maxPrice);
             jsonObject.put(RequestParamUtils.minPrice, FilterSelectedList.minPrice);
+
             if (onSale) {
                 jsonObject.put(RequestParamUtils.onSale, 1);
             }
