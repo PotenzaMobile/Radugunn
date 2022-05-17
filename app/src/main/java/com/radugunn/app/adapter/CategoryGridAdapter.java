@@ -169,7 +169,6 @@ public class CategoryGridAdapter extends RecyclerView.Adapter<CategoryGridAdapte
         holder.tvPrice.setTextSize(15);
         ((BaseActivity) activity).setPrice(holder.tvPrice, holder.tvPrice1, list.get(position).priceHtml);
 
-
         holder.ll_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

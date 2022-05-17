@@ -82,7 +82,7 @@ public class ViewBinderHelper {
             }
         });
 
-        // first time binding.
+        // first time 
         if (!mapStates.containsKey(id)) {
             mapStates.put(id, SwipeRevealLayout.STATE_CLOSE);
             swipeLayout.close(false);

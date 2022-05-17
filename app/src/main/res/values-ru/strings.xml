@@ -18,7 +18,7 @@
     <string name="address">Адрес</string>
     <string name="my_reward">Мои купоны</string>
     <string name="please_apply_rating">Оценить</string>
-    <string name="comment">Комментарий</string>
+    <string name="comment">комментарий</string>
     <string name="review">Обзор</string>
     <string name="submit">Отправить</string>
     <string name="rate_app">Оценить приложение</string>
@@ -390,5 +390,7 @@
     <string name="update" translatable="false">Обновлять</string>
     <string name="update_application" translatable="false">Обновить приложение</string>
     <string name="new_version_check" translatable="false">Новая версия этого приложения доступна в магазине Play. Нажмите «Обновить», чтобы установить обновленное приложение.</string>
+    <string name="enter_note" translatable="false">Добавлять комментарий</string>
+    <string name="off" translatable="false">Выключенный</string>
 
 </resources>

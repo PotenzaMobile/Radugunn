@@ -1016,8 +1016,70 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-
     public void setPrice(TextViewRegular tvPrice, TextViewRegular tvPrice1, String price) {
+        Log.e(TAG, "setPrice: " + price);
+        if (price != null)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                tvPrice.setText(Html.fromHtml(price + "", Html.FROM_HTML_MODE_COMPACT));
+            } else {
+                tvPrice.setText(Html.fromHtml(price));
+            }
+        if (tvPrice.getText().toString().contains("–")) {
+            Log.e(TAG, "setPrice: " + "if");
+            tvPrice.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+            tvPrice1.setText("");
+            tvPrice.setPaintFlags(0);
+        } else if (price != null) {
+            if (tvPrice.getText().toString().contains(" ") && price.contains("<del")) {
+                Log.e(TAG, "setPrice: " + "elseif");
+                String firstPrice = price.substring(price.indexOf("<del"), price.indexOf("</del>"));
+                String secondPrice = price.substring(price.indexOf("<ins>"), price.indexOf("</ins>"));
+                String htmlText = "" + " " + firstPrice + "</font>";
+                String htmlText1 = "" + " " + secondPrice + "</font>";
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    tvPrice.setText(Html.fromHtml(htmlText, Html.FROM_HTML_MODE_COMPACT));
+                    tvPrice1.setText(Html.fromHtml(htmlText1, Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    tvPrice.setText(Html.fromHtml(htmlText));
+                    tvPrice1.setText(Html.fromHtml(htmlText1));
+                }
+                String price11 = tvPrice.getText().toString();
+                String price22 = tvPrice1.getText().toString();
+                if (Constant.CURRENCYSYMBOL != null) {
+                    price11 = tvPrice.getText().toString().replace(Constant.CURRENCYSYMBOL, "");
+                    price22 = tvPrice1.getText().toString().replace(Constant.CURRENCYSYMBOL, "");
+                }
+
+                String price1 = price11.replace(",", "");
+                String price2 = price22.replace(",", "");
+                try {
+                    if (Double.parseDouble(price1.replaceAll("\\s+", "")) > Double.parseDouble(price2.replaceAll("\\s+", ""))) {
+                        tvPrice.setPaintFlags(tvPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        tvPrice1.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+                        tvPrice.setTextColor(getResources().getColor(R.color.gray_light));
+                        tvPrice.setTextSize(14);
+                        tvPrice1.setTextSize(15);
+                    } else {
+                        tvPrice1.setPaintFlags(tvPrice1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        tvPrice.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+                        tvPrice1.setTextColor(getResources().getColor(R.color.gray_light));
+                        tvPrice.setTextSize(15);
+                        tvPrice1.setTextSize(14);
+                    }
+                } catch (Exception e) {
+                    Log.e("Exception is ", e.getMessage());
+                    tvPrice.setPaintFlags(tvPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+            } else {
+                Log.e(TAG, "setPrice: " + "else" + price);
+                tvPrice1.setText(tvPrice.getText().toString());
+                tvPrice1.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+                tvPrice.setText("");
+            }
+        }
+    }
+    /*public void setPrice(TextViewRegular tvPrice, TextViewRegular tvPrice1, String price) {
         if (price != null)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tvPrice.setText(Html.fromHtml(price + "", Html.FROM_HTML_MODE_COMPACT));
@@ -1081,7 +1143,7 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
             tvPrice1.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
             tvPrice.setText("");
         }
-    }
+    }*/
 
     public void openWhatsApp(String number, String message) {
 
@@ -1356,10 +1418,11 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
         if (salePrice != null && !salePrice.equals("") && !salePrice.equals("0.0")) {
             String discount = getDiscount(regularPrice, salePrice);
             if (!discount.equals("")) {
-                tvDiscount.setText(discount + " Off");
+                tvDiscount.setText(discount + " " + getResources().getString(R.string.off));
             } else {
                 tvDiscount.setVisibility(View.GONE);
             }
+
         } else {
             tvDiscount.setVisibility(View.GONE);
         }

@@ -121,19 +121,20 @@
 
 
                             <com.radugunn.app.customview.textview.TextViewRegular
-                                android:id="@+id/tvPrice1"
-                                style="@style/txt_black_small"
+                                android:id="@+id/tvPrice"
+                                style="@style/txt_color_primary_small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text=""
                                 android:textAlignment="viewStart"
                                 android:textDirection="locale"
+                                android:textColor="@color/colorAccent"
                                 tools:ignore="RtlCompat" />
 
                             <com.radugunn.app.customview.textview.TextViewRegular
-                                android:id="@+id/tvPrice"
-                                style="@style/txt_color_primary_small"
+                                android:id="@+id/tvPrice1"
+                                style="@style/txt_black_small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/value_5"
@@ -141,7 +142,6 @@
                                 android:gravity="center"
                                 android:text=""
                                 android:textAlignment="viewStart"
-                                android:textColor="@color/colorAccent"
                                 android:textDirection="locale"
                                 tools:ignore="RtlCompat" />
                         </LinearLayout>
@@ -493,7 +493,7 @@
                         android:layout_marginHorizontal="@dimen/_5sdp"
                         android:layout_marginVertical="@dimen/_10sdp"
                         android:background="@drawable/note_dialog_addtocart"
-                        android:hint="Enter Note"
+                        android:hint="@string/enter_note"
                         android:inputType="textLongMessage"
                         android:lines="1"
                         android:padding="@dimen/_10sdp" />

@@ -492,7 +492,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         setIncDec(categoryList);
 
         getQuantityFromDatabase();
-        tvAddNoteText.setText(getResources().getString(R.string.add) + " " + getResources().getString(R.string.comment));
+        tvAddNoteText.setText(getResources().getString(R.string.enter_note));
 
 
     }
@@ -997,6 +997,31 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         }
     }
 
+    /*public void setPrice(String price) {
+
+        Log.e(TAG, "Harsh setPrice 1: "+ price );
+        if (price == null) {
+            price = categoryList.priceHtml;
+            Log.e(TAG, "Harsh setPrice 2: "+ price );
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            tvPrice.setText(Html.fromHtml(price, Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            tvPrice.setText(Html.fromHtml(price + " ") + "");
+        }
+
+        tvPrice.setTextSize(15);
+        setPrice(tvPrice, tvPrice1, price);
+
+        if (!categoryList.type.equals("variable")) {
+            showDiscount(tvDiscount, categoryList.salePrice, categoryList.regularPrice);
+        } else {
+            showDiscount(tvDiscount, CheckIsVariationAvailable.salePrice + "", CheckIsVariationAvailable.regularPrice + "");
+        }
+
+    }*/
+
     public void setPrice(String price) {
         if (price == null) {
             price = categoryList.priceHtml;
@@ -1004,9 +1029,9 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             tvPrice.setText(Html.fromHtml(price, Html.FROM_HTML_MODE_COMPACT));
-
         } else {
-            tvPrice.setText(Html.fromHtml(price + " ") + "");
+            String strPrice = Html.fromHtml(price + " ") + "";
+            tvPrice.setText(strPrice);
         }
         tvPrice.setTextSize(15);
         setPrice(tvPrice, tvPrice1, price);
@@ -1023,6 +1048,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             llProductDescription.setVisibility(View.VISIBLE);
             tvProductDescription.setHtml(categoryList.description,
                     new HtmlHttpImageGetter(tvProductDescription));
+        }else{
+            llProductDescription.setVisibility(View.GONE);
         }
     }
 

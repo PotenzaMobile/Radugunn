@@ -221,7 +221,7 @@
 
     <string name="more">More</string>
 
-    <string name="comment">Comment:</string>
+    <string name="comment">comment:</string>
 
     <string name="review">Review</string>
 
@@ -600,6 +600,9 @@
     <string name="update" translatable="false">Update</string>
     <string name="update_application" translatable="false">Update Application</string>
     <string name="new_version_check" translatable="false">New version of this application is available on play store click update to install updated application.</string>
+    <string name="enter_note" translatable="false">Add comment</string>
+    <string name="off" translatable="false">Off</string>
+
 
 
 </resources>

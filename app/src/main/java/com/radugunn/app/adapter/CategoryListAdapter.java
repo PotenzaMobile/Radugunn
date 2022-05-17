@@ -167,6 +167,14 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
             holder.tvName.setText(Html.fromHtml(list.get(position).name));
         }
 
+      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            holder.tvPrice.setText(Html.fromHtml(list.get(position).priceHtml, Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            holder.tvPrice.setText(Html.fromHtml(list.get(position).priceHtml));
+        }
+        holder.tvPrice.setTextSize(15);
+        ((BaseActivity) activity).setPrice(holder.tvPrice, holder.tvPrice1, list.get(position).priceHtml);*/
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             holder.tvPrice.setText(Html.fromHtml(list.get(position).priceHtml, Html.FROM_HTML_MODE_COMPACT));
         } else {
