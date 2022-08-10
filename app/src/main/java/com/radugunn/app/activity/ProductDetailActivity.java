@@ -634,9 +634,10 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
     }
 
     public void variationPopupOrInPage() {
-
+        Log.e(TAG, "variationPopupOrInPage: harsh1: "+ new Gson().toJson(variationList) );
         if (Config.IS_VARIATION_POPUP_SHOW) {
             showDialog();
+            Log.e(TAG, "variationPopupOrInPage: harsh2: "+ new Gson().toJson(variationList) );
             if (variationList.size() == 0) {
                 llProductVariation.setVisibility(View.GONE);
                 llColor.setVisibility(View.GONE);
@@ -648,6 +649,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             productColorAdapter.addAll(categoryList.attributes.get(0).options);
 
         } else {
+            Log.e(TAG, "variationPopupOrInPage: harsh3: "+ new Gson().toJson(variationList) );
             if (variationList.size() == 0) {
                 llProductVariation.setVisibility(View.GONE);
                 llColor.setVisibility(View.GONE);
@@ -839,6 +841,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 //        GlideDrawableImageViewTarget ivSmily = new GlideDrawableImageViewTarget(ivProgress);
         Glide.with(this).load(R.raw.loader).into(ivProgress);
         if (categoryList.additionInfoHtml != null && !categoryList.additionInfoHtml.equals("")) {
+
+            Log.e(TAG, "setData: Harsh Info "+categoryList.additionInfoHtml );
 
             wv_info.loadData(categoryList.additionInfoHtml, "text/html; charset=UTF-8", null);
 
@@ -1048,7 +1052,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             llProductDescription.setVisibility(View.VISIBLE);
             tvProductDescription.setHtml(categoryList.description,
                     new HtmlHttpImageGetter(tvProductDescription));
-        }else{
+        } else {
             llProductDescription.setVisibility(View.GONE);
         }
     }
@@ -1112,6 +1116,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             } else {
                 strURl = strURl + getPreferences().getString(RequestParamUtils.CurrencyText, "") + "&page=" + VariationPage;
             }
+            Log.e(TAG, "getVariation: "+strURl );
+            Log.e(TAG, "getVariation: "+"called" );
             getApi.callGetApi(strURl);
         } else {
             Toast.makeText(this, R.string.internet_not_working, Toast.LENGTH_LONG).show();
@@ -1191,10 +1197,13 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 
         dismissProgress();
 
+        
         if (methodName.equals(RequestParamUtils.getVariation)) {
-
+            Log.e(TAG, "onResponse: "+"called" );
+            Log.e(TAG, "onResponse:  Harsh "+new Gson().toJson(response) );
             JSONArray jsonArray = null;
             if (response != null && response.length() > 0) {
+            
                 try {
                     jsonArray = new JSONArray(response);
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -1205,6 +1214,9 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 
 
                         variationList.add(variationRider);
+
+                        Log.e(TAG, "onResponse: Harsh "+variationRider );
+                        Log.e(TAG, "onResponse: Harsh: "+new Gson().toJson(variationList) );
                     }
                     if (jsonArray.length() == 10) {
                         //more product available
@@ -1442,8 +1454,6 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             vpProductImages.setCurrentItem(0);
             productImageViewPagerAdapter.addAll(imageList);
         }
-
-
     }
 
     private void addBottomDots(int currentPage, int length) {
@@ -1514,12 +1524,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             if (groupProductAdapter != null) {
                 groupProductAdapter.notifyDataSetChanged();
             }
-
         }
-
-
 //        changePrice();
-
     }
 
     @OnClick(R.id.tvMoreQuickOverview)
@@ -2152,9 +2158,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         } else {
             tvCart.setText(getResources().getString(R.string.add_to_Cart));
         }
-
     }
-
 
     @OnClick(R.id.ivWishList)
     public void ivWishListClick() {

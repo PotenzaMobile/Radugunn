@@ -64,8 +64,6 @@ public class SplashScreenActivity extends BaseActivity {
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
 
-
-
         getPreferences().edit().putBoolean(Constant.PlayStore_update,true).apply();
         
         verifyPurchase();

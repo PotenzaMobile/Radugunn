@@ -125,13 +125,11 @@ public class RecentViewAdapter extends RecyclerView.Adapter<RecentViewAdapter.Re
         } else {
             holder.ivImage.setImageResource(R.drawable.no_image_available);
         }
-        if (android.os.Build.VERSION.SDK_INT >= android.
-                os.Build.VERSION_CODES.N) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             holder.tvName.setText(Html.fromHtml(list.get(position).name + "", Html.FROM_HTML_MODE_LEGACY));
         } else {
             holder.tvName.setText(Html.fromHtml(list.get(position).name + ""));
         }
-
 
         holder.tvPrice.setTextSize(15);
         if (list.get(position).priceHtml != null)

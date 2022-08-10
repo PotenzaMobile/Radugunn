@@ -31,6 +31,7 @@ import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
@@ -860,9 +861,7 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
                         tvBottomCartCount.setVisibility(View.GONE);
                 }
                 flCart.setVisibility(View.VISIBLE);
-
             }
-
         }
 
 //        tvToolCart.getBackground().setColorFilter(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)), PorterDuff.Mode.SRC_IN);
@@ -1030,10 +1029,16 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
             tvPrice1.setText("");
             tvPrice.setPaintFlags(0);
         } else if (price != null) {
-            if (tvPrice.getText().toString().contains(" ") && price.contains("<del")) {
+            if (tvPrice.getText().toString().contains(" ") && price.contains("<del>")) {
                 Log.e(TAG, "setPrice: " + "elseif");
-                String firstPrice = price.substring(price.indexOf("<del"), price.indexOf("</del>"));
-                String secondPrice = price.substring(price.indexOf("<ins>"), price.indexOf("</ins>"));
+                String[] seprated = price.split("</del>");
+
+                String firstPrice = seprated[0];
+                String secondPrice = seprated[1];
+
+                Log.e(TAG, "setPrice: firstprice: " + firstPrice);
+                Log.e(TAG, "setPrice: secondprice" + secondPrice);
+
                 String htmlText = "" + " " + firstPrice + "</font>";
                 String htmlText1 = "" + " " + secondPrice + "</font>";
 
@@ -1073,12 +1078,14 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
                 }
             } else {
                 Log.e(TAG, "setPrice: " + "else" + price);
-                tvPrice1.setText(tvPrice.getText().toString());
-                tvPrice1.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
-                tvPrice.setText("");
+                tvPrice.setText(tvPrice.getText().toString());
+                tvPrice.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
+                tvPrice1.setText("");
+                tvPrice.setTextSize(15);
             }
         }
     }
+
     /*public void setPrice(TextViewRegular tvPrice, TextViewRegular tvPrice1, String price) {
         if (price != null)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -1144,6 +1151,14 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
             tvPrice.setText("");
         }
     }*/
+
+    public void setMargins(View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
+    }
 
     public void openWhatsApp(String number, String message) {
 
