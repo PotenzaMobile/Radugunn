@@ -160,7 +160,6 @@ public class CartAdapter extends RecyclerView.Adapter {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 holder.tvPrice.setText(Html.fromHtml(list.get(position).getCategoryList().priceHtml, Html.FROM_HTML_MODE_COMPACT));
-
             } else {
                 holder.tvPrice.setText(Html.fromHtml(list.get(position).getCategoryList().priceHtml));
             }

@@ -342,6 +342,15 @@ public class CategoryList {
         }
     }
 
+    @SerializedName("is_dynamic_price")
+    @Expose
+    public Boolean isDynamicPrice;
+
+    public CategoryList withIsDynamicPrice(Boolean isDynamicPrice) {
+        this.isDynamicPrice = isDynamicPrice;
+        return this;
+    }
+
 
     //TODO: Old
     public Attribute getAttributeInstance() {

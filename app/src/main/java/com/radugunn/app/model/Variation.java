@@ -565,4 +565,14 @@ public class Variation {
             return this;
         }
     }
+
+    @SerializedName("is_dynamic_price")
+    @Expose
+    public Boolean isDynamicPrice;
+
+    public Variation withIsDynamicPrice(Boolean isDynamicPrice) {
+        this.isDynamicPrice = isDynamicPrice;
+        return this;
+    }
+
 }

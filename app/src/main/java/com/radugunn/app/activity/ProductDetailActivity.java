@@ -1061,7 +1061,14 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             tvPrice.setText(strPrice);
         }
         tvPrice.setTextSize(15);
+
         setPrice(tvPrice, tvPrice1, price);
+
+//        if (Constant.is_dynamic_price ==true){
+//            tvPrice1.setText(Constant.calculatedPrice);
+//        }else{
+//            setPrice(tvPrice, tvPrice1, price);
+//        }
 
         if (!categoryList.type.equals("variable")) {
             showDiscount(tvDiscount, categoryList.salePrice, categoryList.regularPrice);
@@ -1223,7 +1230,11 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         rvDynamicPrice.setNestedScrollingEnabled(false);
 
         Constant.regularPrice = categoryList.regularPrice;
+        Constant.is_dynamic_price = categoryList.isDynamicPrice;
+        Log.e(TAG, "setDynamicPriceRecyclerData: Harsh"+ Constant.is_dynamic_price );
         Log.e(TAG, "setDynamicPriceRecyclerData: Harsh Regular Price "+Constant.regularPrice );
+
+
 
         if (categoryList.dynamicPrice != null){
             llDynamicDiscount.setVisibility(View.VISIBLE);
@@ -1539,6 +1550,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         rvReview.setNestedScrollingEnabled(false);
     }
 
+    boolean isFirstItemSelected = false;
     @Override
     public void onItemClick(int position, String value, int outerPos) {
         if (outerPos != 11459060) {
@@ -1566,6 +1578,30 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         }
 
         if (outerPos == Constant.dynamicOuterPosition){
+
+            if (Constant.is_dynamic_price == true){
+
+                tvQuantity.setText(categoryList.dynamicPrice.get(position).maxQuantity);
+
+                if (Constant.CURRENCYSYMBOL == null){
+                    tvPrice1.setText(Utils.calculatedPrice(categoryList.regularPrice, categoryList.dynamicPrice.get(position).discountAmount));
+                }else{
+                    tvPrice1.setText(Constant.CURRENCYSYMBOL +
+                            Utils.calculatedPrice(categoryList.regularPrice, categoryList.dynamicPrice.get(position).discountAmount));
+                }
+
+
+//                if (Constant.selectedItem == 0) {
+//                    if (isFirstItemSelected = true) {
+//                        tvQuantity.setText(categoryList.dynamicPrice.get(position).maxQuantity);
+//                    }
+//                }
+            }else{
+                isFirstItemSelected = false;
+                getQuantityFromDatabase();
+                setIncDec(categoryList);
+            }
+
             Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
         }
 
@@ -1725,7 +1761,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
                 }
 //                }
             }
-        } else if (categoryList.type.equals(RequestParamUtils.simple)) {
+        }
+        else if (categoryList.type.equals(RequestParamUtils.simple)) {
             Cart cart = new Cart();
 
             cart.setQuantity(Integer.parseInt(tvQuantity.getText().toString()));
