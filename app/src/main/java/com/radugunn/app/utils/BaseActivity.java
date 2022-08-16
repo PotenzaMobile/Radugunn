@@ -135,6 +135,9 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
     public LinearLayout llHome, llSearchFromBottom, llCart, llAccount, llWishList, llBottomBar, llBottmLine;
     private View views;
 
+    public double calculatedDiscountedPrice;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1151,6 +1154,8 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
             tvPrice.setText("");
         }
     }*/
+
+
 
     public void setMargins(View view, int left, int top, int right, int bottom) {
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {

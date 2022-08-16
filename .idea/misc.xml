@@ -3,15 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/drawable-xhdpi/white_gray_strok_button.xml" value="0.121" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/drawable/discount_horizontal.xml" value="0.183" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/drawable/ic_notification_black.xml" value="0.168" />
+        <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/drawable/item_bg_dynamic_price.xml" value="0.121" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/activity_filter.xml" value="0.23802083333333332" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/activity_home.xml" value="0.23802083333333332" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/activity_my_order.xml" value="0.21851851851851853" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/activity_news.xml" value="0.23802083333333332" />
-        <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/activity_product_detail.xml" value="0.23802083333333332" />
+        <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/activity_product_detail.xml" value="0.2" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/activity_webview.xml" value="0.23802083333333332" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/dialog_new_update.xml" value="0.23802083333333332" />
+        <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/item_discount_table.xml" value="0.23385416666666667" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/item_product_color.xml" value="0.23802083333333332" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/item_product_detail_variation.xml" value="0.23435897435897435" />
         <entry key="..\:/6.Harsh Potenza/1.Projects/Radugann/2. Release/2. 21_02_22/radugann/radugann/app/src/main/res/layout/scroll_home_view.xml" value="0.264" />

@@ -284,7 +284,6 @@ public class CartAdapter extends RecyclerView.Adapter {
             });
             //bind view over
         }
-
     }
 
     public void saveStates(Bundle outState) {
@@ -353,7 +352,6 @@ public class CartAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
     }
-
 
     public void getWidthAndHeight() {
         int height_value = activity.getResources().getInteger(R.integer.height);

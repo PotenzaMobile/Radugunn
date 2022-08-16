@@ -28,6 +28,7 @@ public class CheckIsVariationAvailable {
     List<CategoryList.Attribute> tempAttrList = new ArrayList<>();
     public boolean isAnyAddedInList = false;
     List<Variation> attributeList = new ArrayList<>();
+
     public boolean isVariationAvailbale(Map<Integer, String> combination, List<Variation> variationList, List<CategoryList.Attribute> list) {
         categoryList = list;
         String comb = "";
@@ -49,6 +50,7 @@ public class CheckIsVariationAvailable {
         }
         return false;
     }
+
     public List<CategoryList.Attribute> getVariationList(List<Variation> variationList, String name, List<CategoryList.Attribute> catlist) {
         categoryList = catlist;
         attributeList = variationList;
@@ -93,7 +95,7 @@ public class CheckIsVariationAvailable {
         return tempAttrList;
     }
 
-//    public boolean containsTempList(List<CategoryList.Attribute> list, long id) {
+    //    public boolean containsTempList(List<CategoryList.Attribute> list, long id) {
 //
 //        tempPosition = -1;
 //        for (int i = 0; i < list.size(); i++) {
@@ -136,7 +138,6 @@ public class CheckIsVariationAvailable {
         return true;
     }
 
-
     public boolean isVariationContain(List<Variation.Attribute> list, String name) {
         for (int j = 0; j < categoryList.size(); j++) {
             try {
@@ -178,7 +179,6 @@ public class CheckIsVariationAvailable {
         return false;
     }
 
-
     public boolean isAttributeContain(String name) {
         int count = 0;
         for (int i = 0; i < this.attributeList.size(); i++) {
@@ -195,105 +195,107 @@ public class CheckIsVariationAvailable {
     public int getVariationid(List<Variation> variationList, List<String> selectAttribute) {
 
         int count = 0;
-        for (int i = 0; i < variationList.size(); i++) {
-            count = 0;
-            for (int j = 0; j < variationList.get(i).attributes.size(); j++) {
+        if  (variationList != null){
+            for (int i = 0; i < variationList.size(); i++) {
+                count = 0;
+                for (int j = 0; j < variationList.get(i).attributes.size(); j++) {
 
-                if (selectAttribute.contains(variationList.get(i).attributes.get(j).name + "->" + variationList.get(i).attributes.get(j).option)) {
-                    count = count + 1;
+                    if (selectAttribute.contains(variationList.get(i).attributes.get(j).name + "->" + variationList.get(i).attributes.get(j).option)) {
+                        count = count + 1;
+                    }
                 }
-            }
 
-            if (count == variationList.get(i).attributes.size() && count != 0) {
-                pricehtml = variationList.get(i).priceHtml;
-                stockQuantity = variationList.get(i).stockQuantity;
-                imageSrc = variationList.get(i).image.src;
-                isManageStock = variationList.get(i).manageStock;
-                inStock = variationList.get(i).inStock;
-                if (!variationList.get(i).price.equals("")) {
-                    price = Float.parseFloat(getPrice(variationList.get(i).price));
-                    if (!variationList.get(i).regularPrice.equals("") && variationList.get(i).regularPrice != null) {
-                        regularPrice = Float.parseFloat(getPrice(variationList.get(i).regularPrice));
-                    }
+                if (count == variationList.get(i).attributes.size() && count != 0) {
+                    pricehtml = variationList.get(i).priceHtml;
+                    stockQuantity = variationList.get(i).stockQuantity;
+                    imageSrc = variationList.get(i).image.src;
+                    isManageStock = variationList.get(i).manageStock;
+                    inStock = variationList.get(i).inStock;
+                    if (!variationList.get(i).price.equals("")) {
+                        price = Float.parseFloat(getPrice(variationList.get(i).price));
+                        if (!variationList.get(i).regularPrice.equals("") && variationList.get(i).regularPrice != null) {
+                            regularPrice = Float.parseFloat(getPrice(variationList.get(i).regularPrice));
+                        }
 
-                    if (!variationList.get(i).salePrice.equals("") && variationList.get(i).salePrice != null) {
-                        salePrice = Float.parseFloat(getPrice(variationList.get(i).salePrice));
+                        if (!variationList.get(i).salePrice.equals("") && variationList.get(i).salePrice != null) {
+                            salePrice = Float.parseFloat(getPrice(variationList.get(i).salePrice));
+                        } else {
+                            salePrice = 0;
+                        }
+
                     } else {
-                        salePrice = 0;
-                    }
+                        price = 0;
+                        if (!variationList.get(i).regularPrice.equals("") && variationList.get(i).regularPrice != null) {
+                            regularPrice = Float.parseFloat(getPrice(variationList.get(i).regularPrice));
+                        }
 
-                } else {
-                    price = 0;
-                    if (!variationList.get(i).regularPrice.equals("") && variationList.get(i).regularPrice != null) {
-                        regularPrice = Float.parseFloat(getPrice(variationList.get(i).regularPrice));
-                    }
+                        if (!variationList.get(i).salePrice.equals("") && variationList.get(i).salePrice != null) {
+                            salePrice = Float.parseFloat(getPrice(variationList.get(i).salePrice));
+                        } else {
+                            salePrice = 0;
+                        }
 
-                    if (!variationList.get(i).salePrice.equals("") && variationList.get(i).salePrice != null) {
-                        salePrice = Float.parseFloat(getPrice(variationList.get(i).salePrice));
+                    }
+                    if (variationList.get(i).taxPrice != null && !variationList.get(i).taxPrice.equals("") && variationList.get(i).taxStatus.equals("taxable")) {
+                        try {
+
+                            taxPrice = Float.parseFloat(getPrice(variationList.get(i).taxPrice));
+
+                        } catch (Exception e) {
+                            Log.e("Exception is ", e.getMessage());
+                            taxPrice = 0;
+                        }
                     } else {
-                        salePrice = 0;
-                    }
-
-                }
-                if (variationList.get(i).taxPrice != null && !variationList.get(i).taxPrice.equals("") && variationList.get(i).taxStatus.equals("taxable")) {
-                    try {
-
-                        taxPrice = Float.parseFloat(getPrice(variationList.get(i).taxPrice));
-
-                    } catch (Exception e) {
-                        Log.e("Exception is ", e.getMessage());
                         taxPrice = 0;
                     }
-                } else {
-                    taxPrice = 0;
-                }
 
-                return variationList.get(i).id;
-            } else if (count == 0 && variationList.get(i).attributes.size() == 0) {
-                pricehtml = variationList.get(i).priceHtml;
-                inStock = variationList.get(i).inStock;
-                stockQuantity = variationList.get(i).stockQuantity;
-                imageSrc = variationList.get(i).image.src;
-                isManageStock = variationList.get(i).manageStock;
-                if (!variationList.get(i).price.equals("")) {
-                    price = Float.parseFloat(getPrice(variationList.get(i).price));
+                    return variationList.get(i).id;
+                } else if (count == 0 && variationList.get(i).attributes.size() == 0) {
+                    pricehtml = variationList.get(i).priceHtml;
+                    inStock = variationList.get(i).inStock;
+                    stockQuantity = variationList.get(i).stockQuantity;
+                    imageSrc = variationList.get(i).image.src;
+                    isManageStock = variationList.get(i).manageStock;
+                    if (!variationList.get(i).price.equals("")) {
+                        price = Float.parseFloat(getPrice(variationList.get(i).price));
 
-                    if (!variationList.get(i).regularPrice.equals("") && variationList.get(i).regularPrice != null) {
-                        regularPrice = Float.parseFloat(getPrice(variationList.get(i).regularPrice));
-                    }
+                        if (!variationList.get(i).regularPrice.equals("") && variationList.get(i).regularPrice != null) {
+                            regularPrice = Float.parseFloat(getPrice(variationList.get(i).regularPrice));
+                        }
 
-                    if (!variationList.get(i).salePrice.equals("") && variationList.get(i).salePrice != null) {
-                        salePrice = Float.parseFloat(getPrice(variationList.get(i).salePrice));
+                        if (!variationList.get(i).salePrice.equals("") && variationList.get(i).salePrice != null) {
+                            salePrice = Float.parseFloat(getPrice(variationList.get(i).salePrice));
+                        } else {
+                            salePrice = 0;
+                        }
+
                     } else {
-                        salePrice = 0;
-                    }
+                        price = 0;
+                        if (!variationList.get(i).regularPrice.equals("")) {
+                            regularPrice = Float.parseFloat(getPrice(variationList.get(i).regularPrice));
+                        }
 
-                } else {
-                    price = 0;
-                    if (!variationList.get(i).regularPrice.equals("")) {
-                        regularPrice = Float.parseFloat(getPrice(variationList.get(i).regularPrice));
-                    }
+                        if (!variationList.get(i).salePrice.equals("") && variationList.get(i).salePrice != null) {
+                            salePrice = Float.parseFloat(getPrice(variationList.get(i).salePrice));
+                        } else {
+                            salePrice = 0;
+                        }
 
-                    if (!variationList.get(i).salePrice.equals("") && variationList.get(i).salePrice != null) {
-                        salePrice = Float.parseFloat(getPrice(variationList.get(i).salePrice));
+                    }
+                    if (variationList.get(i).taxPrice != null && !variationList.get(i).taxPrice.equals("") && variationList.get(i).taxStatus.equals("taxable")) {
+                        try {
+                            taxPrice = Float.parseFloat(getPrice(variationList.get(i).taxPrice));
+                        } catch (Exception e) {
+                            Log.e("Exception is ", e.getMessage());
+                            taxPrice = 0;
+                        }
                     } else {
-                        salePrice = 0;
-                    }
-
-                }
-                if (variationList.get(i).taxPrice != null && !variationList.get(i).taxPrice.equals("") && variationList.get(i).taxStatus.equals("taxable")) {
-                    try {
-                        taxPrice = Float.parseFloat(getPrice(variationList.get(i).taxPrice));
-                    } catch (Exception e) {
-                        Log.e("Exception is ", e.getMessage());
                         taxPrice = 0;
                     }
-                } else {
-                    taxPrice = 0;
+
                 }
 
             }
-
         }
 
         return 0;

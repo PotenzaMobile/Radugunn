@@ -204,7 +204,6 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
 
     public void ClickProduct(int position) {
         if (list.get(position).type.equals(RequestParamUtils.external)) {
-
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(list.get(position).externalUrl));
             activity.startActivity(browserIntent);
         } else {
@@ -237,6 +236,7 @@ public class RelatedProductAdapter extends RecyclerView.Adapter<RelatedProductAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.ivImage)
         ImageView ivImage;
         @BindView(R.id.tvDiscount)

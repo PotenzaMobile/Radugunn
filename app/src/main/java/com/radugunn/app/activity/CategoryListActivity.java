@@ -60,6 +60,7 @@ import butterknife.OnClick;
 
 public class CategoryListActivity extends BaseActivity implements OnResponseListner {
 
+    private static final String TAG = "CategoryListActivity";
     private final int REQUEST_CODE = 101;
     @BindView(R.id.rvCategoryList)
     RecyclerView rvCategoryList;
@@ -459,8 +460,7 @@ public class CategoryListActivity extends BaseActivity implements OnResponseList
         if (methodName.equals(RequestParamUtils.getCategoryListData)) {
             if (response != null && response.length() > 0) {
                 try {
-
-
+                    
                     JSONArray jsonArray = new JSONArray(response);
                     categoryLists = new ArrayList<>();
                     if (loading || FilterSelectedList.isFilterCalled) {
@@ -475,6 +475,7 @@ public class CategoryListActivity extends BaseActivity implements OnResponseList
                                     }.getType());
                             categoryLists.add(categoryListRider);
 
+                            Log.e(TAG, "onResponse: Harsh Dynamic "+ new Gson().toJson(categoryLists.get(i).dynamicPrice));
                         }
 
                     } catch (Exception e) {

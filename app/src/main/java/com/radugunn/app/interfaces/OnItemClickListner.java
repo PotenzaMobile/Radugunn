@@ -6,7 +6,5 @@ package com.radugunn.app.interfaces;
 
 public interface OnItemClickListner {
     public void onItemClick(int position,String value,int outerpos);
-
-
 }
 

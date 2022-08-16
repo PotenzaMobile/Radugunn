@@ -294,61 +294,54 @@ public class CategoryList {
         this.advancedQtyStep = advancedQtyStep;
     }
 
-//    public String getAdvancedQtyStepIntervals() {
-//        return advancedQtyStepIntervals;
-//    }
-//
-//    public void setAdvancedQtyStepIntervals(String advancedQtyStepIntervals) {
-//        this.advancedQtyStepIntervals = advancedQtyStepIntervals;
-//    }
 
-//    public List<List<String>> getAdvancedQtyStepIntervals() {
-//        return advancedQtyStepIntervals;
-//    }
-//
-//    public void setAdvancedQtyStepIntervals(List<List<String>> advancedQtyStepIntervals) {
-//        this.advancedQtyStepIntervals = advancedQtyStepIntervals;
-//    }
-//
-//    public String getAdvancedQtyValue() {
-//        return advancedQtyValue;
-//    }
-//
-//    public void setAdvancedQtyValue(String advancedQtyValue) {
-//        this.advancedQtyValue = advancedQtyValue;
-//    }
-//
-//    public String getAdvancedQtyPriceSuffix() {
-//        return advancedQtyPriceSuffix;
-//    }
-//
-//    public void setAdvancedQtyPriceSuffix(String advancedQtyPriceSuffix) {
-//        this.advancedQtyPriceSuffix = advancedQtyPriceSuffix;
-//    }
-//
-//    public String getAdvancedQtyQuantitySuffix() {
-//        return advancedQtyQuantitySuffix;
-//    }
-//
-//    public void setAdvancedQtyQuantitySuffix(String advancedQtyQuantitySuffix) {
-//        this.advancedQtyQuantitySuffix = advancedQtyQuantitySuffix;
-//    }
-//
-//    public String getAdvancedQtyPriceFactor() {
-//        return advancedQtyPriceFactor;
-//    }
-//
-//    public void setAdvancedQtyPriceFactor(String advancedQtyPriceFactor) {
-//        this.advancedQtyPriceFactor = advancedQtyPriceFactor;
-//    }
-//
-//    public String getAdvancedQtyInputPicker() {
-//        return advancedQtyInputPicker;
-//    }
-//
-//    public void setAdvancedQtyInputPicker(String advancedQtyInputPicker) {
-//        this.advancedQtyInputPicker = advancedQtyInputPicker;
-//    }
+    // 15 Aug 2022
+    @SerializedName("dynamic_price")
+    @Expose
+    public List<DynamicPrice> dynamicPrice = null;
+
+    public CategoryList withDynamicPrice(List<DynamicPrice> dynamicPrice) {
+        this.dynamicPrice = dynamicPrice;
+        return this;
+    }
+
+
+    public class DynamicPrice {
+
+        @SerializedName("min_quantity")
+        @Expose
+        public String minQuantity;
+        @SerializedName("max_quantity")
+        @Expose
+        public String maxQuantity;
+        @SerializedName("type_discount")
+        @Expose
+        public String typeDiscount;
+        @SerializedName("discount_amount")
+        @Expose
+        public String discountAmount;
+
+        public DynamicPrice withMinQuantity(String minQuantity) {
+            this.minQuantity = minQuantity;
+            return this;
+        }
+
+        public DynamicPrice withMaxQuantity(String maxQuantity) {
+            this.maxQuantity = maxQuantity;
+            return this;
+        }
+
+        public DynamicPrice withTypeDiscount(String typeDiscount) {
+            this.typeDiscount = typeDiscount;
+            return this;
+        }
+
+        public DynamicPrice withDiscountAmount(String discountAmount) {
+            this.discountAmount = discountAmount;
+            return this;
+        }
+    }
+
 
     //TODO: Old
     public Attribute getAttributeInstance() {

@@ -602,7 +602,10 @@
     <string name="new_version_check" translatable="false">New version of this application is available on play store click update to install updated application.</string>
     <string name="enter_note" translatable="false">Add comment</string>
     <string name="off" translatable="false">Off</string>
-
+    <string name="buy_profitably" translatable="false">Buy profitably</string>
+    <string name="quantity_discount" translatable="false">Quantity</string>
+    <string name="price_discount" translatable="false">Price</string>
+    <string name="discount" translatable="false">% Discount</string>
 
 
 </resources>

@@ -280,7 +280,6 @@ public class AddToCartVariation implements OnResponseListner, OnItemClickListner
         alertDialog.show();
     }
 
-
     public void callApi() {
 
         ((BaseActivity) activity).showProgress("");

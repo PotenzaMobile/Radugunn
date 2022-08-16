@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/_5sdp"
+    android:background="@drawable/white_gray_strok_button">
+
+    <LinearLayout
+        android:id="@+id/llMainDynamicPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp">
+
+        <com.radugunn.app.customview.textview.TextViewLight
+            android:id="@+id/tvDiscountQuantity"
+            style="@style/txt_gray_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:text="1 - 5"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/colorAccent" />
+
+        <com.radugunn.app.customview.textview.TextViewLight
+            android:id="@+id/tvDiscountPrice"
+            style="@style/txt_gray_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:text="10"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/colorAccent" />
+
+        <com.radugunn.app.customview.textview.TextViewLight
+            android:id="@+id/tvDynamicDiscount"
+            style="@style/txt_gray_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:text="3%"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+
+</LinearLayout>

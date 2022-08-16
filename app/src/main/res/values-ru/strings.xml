@@ -392,5 +392,9 @@
     <string name="new_version_check" translatable="false">Новая версия этого приложения доступна в магазине Play. Нажмите «Обновить», чтобы установить обновленное приложение.</string>
     <string name="enter_note" translatable="false">Добавлять комментарий</string>
     <string name="off" translatable="false">Выключенный</string>
+    <string name="buy_profitably" translatable="false">Покупай выгодно</string>
+    <string name="quantity_discount" translatable="false">Количество</string>
+    <string name="price_discount" translatable="false">Цена</string>
+    <string name="discount" translatable="false">% Скидка</string>
 
 </resources>

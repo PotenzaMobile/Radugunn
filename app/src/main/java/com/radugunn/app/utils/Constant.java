@@ -180,4 +180,8 @@ public class Constant {
         return null;
     }
 
+    public static int dynamicOuterPosition = 123;
+    public static String regularPrice = "";
+
+
 }

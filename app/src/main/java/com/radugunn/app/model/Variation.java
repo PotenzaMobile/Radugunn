@@ -518,4 +518,51 @@ public class Variation {
         }
 
     }
+
+    // 15 Aug 2022
+    @SerializedName("dynamic_price")
+    @Expose
+    public List<Variation.DynamicPrice> dynamicPrice = null;
+
+    public Variation withDynamicPrice(List<Variation.DynamicPrice> dynamicPrice) {
+        this.dynamicPrice = dynamicPrice;
+        return this;
+    }
+
+
+    public class DynamicPrice {
+
+        @SerializedName("min_quantity")
+        @Expose
+        public String minQuantity;
+        @SerializedName("max_quantity")
+        @Expose
+        public String maxQuantity;
+        @SerializedName("type_discount")
+        @Expose
+        public String typeDiscount;
+        @SerializedName("discount_amount")
+        @Expose
+        public String discountAmount;
+
+        public Variation.DynamicPrice withMinQuantity(String minQuantity) {
+            this.minQuantity = minQuantity;
+            return this;
+        }
+
+        public Variation.DynamicPrice withMaxQuantity(String maxQuantity) {
+            this.maxQuantity = maxQuantity;
+            return this;
+        }
+
+        public Variation.DynamicPrice withTypeDiscount(String typeDiscount) {
+            this.typeDiscount = typeDiscount;
+            return this;
+        }
+
+        public Variation.DynamicPrice withDiscountAmount(String discountAmount) {
+            this.discountAmount = discountAmount;
+            return this;
+        }
+    }
 }

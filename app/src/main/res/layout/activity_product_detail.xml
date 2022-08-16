@@ -388,7 +388,7 @@
                     android:background="@drawable/white_gray_strok_button"
                     android:orientation="vertical"
                     android:padding="@dimen/_8sdp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvVariation"
@@ -465,6 +465,83 @@
                         android:textDirection="locale"
                         android:visibility="gone" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llDynamicDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_gray_strok_button"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:visibility="visible"
+                    android:padding="@dimen/_8sdp">
+
+                    <com.radugunn.app.customview.textview.TextViewLight
+                        android:id="@+id/tvBuyProfitably"
+                        style="@style/txt_gray_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:text="@string/buy_profitably"
+                        android:textColor="@color/colorAccent" />
+
+                    <LinearLayout
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_marginVertical="@dimen/_10sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/_5sdp">
+
+                            <com.radugunn.app.customview.textview.TextViewLight
+                                android:id="@+id/tvDiscountQuantity"
+                                style="@style/txt_gray_medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:text="@string/quantity_discount"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textColor="@color/colorAccent" />
+
+                            <com.radugunn.app.customview.textview.TextViewLight
+                                android:id="@+id/tvDiscountPrice"
+                                style="@style/txt_gray_medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:text="@string/price_discount"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textColor="@color/colorAccent" />
+
+                            <com.radugunn.app.customview.textview.TextViewLight
+                                android:id="@+id/tvDynamicDiscount"
+                                style="@style/txt_gray_medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:text="@string/discount"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textColor="@color/colorAccent" />
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvDynamicPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/item_discount_table"/>
+
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout

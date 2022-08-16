@@ -60,6 +60,14 @@ public class Utils {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
+    public static String calculatedPrice(String regularPrice, String discountPercentage){
+        double calculatedPrcentagePrice = Double.parseDouble(String.valueOf(Double.parseDouble(regularPrice) / 100.0f * Double.parseDouble(discountPercentage)));
+
+        String substractedPrice = String.valueOf(Double.parseDouble(regularPrice) - calculatedPrcentagePrice);
+
+        return substractedPrice;
+    }
+
 
     public static void CopyStream(InputStream is, OutputStream os) {
         final int buffer_size = 1024;

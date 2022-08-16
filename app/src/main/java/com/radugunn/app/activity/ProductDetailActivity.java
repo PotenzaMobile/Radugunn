@@ -40,6 +40,7 @@ import com.ciyashop.library.apicall.PostApi;
 import com.ciyashop.library.apicall.URLS;
 import com.ciyashop.library.apicall.interfaces.OnResponseListner;
 import com.radugunn.app.R;
+import com.radugunn.app.adapter.DynamicPriceAdapter;
 import com.radugunn.app.adapter.GroupProductAdapter;
 import com.radugunn.app.adapter.ProductColorAdapter;
 import com.radugunn.app.adapter.ProductImageViewPagerAdapter;
@@ -366,6 +367,12 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
     @BindView(R.id.tvStock)
     TextView tvStock;
 
+    @BindView(R.id.rvDynamicPrice)
+    RecyclerView rvDynamicPrice;
+
+    @BindView(R.id.llDynamicDiscount)
+    LinearLayout llDynamicDiscount;
+
     private String note = null;
 
     private boolean isDialogOpen = false;
@@ -406,6 +413,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 
     public String id;
 
+    DynamicPriceAdapter dynamicPriceAdapter;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -419,13 +428,17 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         setScreenLayoutDirection();
         indexNote(Constant.CATEGORYDETAIL);
         List<CategoryList.Attribute> attributes = new ArrayList<>();
-        if (Constant.CATEGORYDETAIL != null && Constant.CATEGORYDETAIL.attributes != null && Constant.CATEGORYDETAIL.attributes.size() > 0) {
+
+        if (Constant.CATEGORYDETAIL != null
+                && Constant.CATEGORYDETAIL.attributes != null
+                && Constant.CATEGORYDETAIL.attributes.size() > 0) {
             for (int i = 0; i < Constant.CATEGORYDETAIL.attributes.size(); i++) {
                 if (Constant.CATEGORYDETAIL.attributes.get(i).variation) {
                     attributes.add(Constant.CATEGORYDETAIL.attributes.get(i));
                 }
             }
         }
+
         categoryList.attributes = attributes;
         Constant.CATEGORYDETAIL = categoryList;
         tvPrice = findViewById(R.id.tvPrice);
@@ -435,6 +448,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         String product = new Gson().toJson(categoryList);
         databaseHelper.addTorecentView(product, categoryList.id + "");
         toast = new CustomToast(this);
+
         if (Constant.IS_WISH_LIST_ACTIVE) {
             ivWishList.setVisibility(View.VISIBLE);
             if (databaseHelper.getWishlistProduct(categoryList.id + "")) {
@@ -445,15 +459,18 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         } else {
             ivWishList.setVisibility(View.GONE);
         }
+
         setData();
         getRelatedProduct();
         setColorTheme();
         Intent intent = getIntent();
+
         if (intent.hasExtra(RequestParamUtils.fromdeeplink)) {
             isDeepLinking = intent.getBooleanExtra(RequestParamUtils.fromdeeplink, true);
         } else {
             isDeepLinking = false;
         }
+
         nsScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -473,6 +490,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
                 }
             }
         });
+
         if (Config.WOO_API_DELIVER_PINCODE) {
             etPincode.setHint(Constant.settingOptions.pincodePlaceholderTxt);
             llPincode.setVisibility(View.VISIBLE);
@@ -481,6 +499,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             llPincode.setVisibility(View.GONE);
             tvDeliverable.setVisibility(View.GONE);
         }
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -494,7 +513,9 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         getQuantityFromDatabase();
         tvAddNoteText.setText(getResources().getString(R.string.enter_note));
 
+        Log.e(TAG, "onCreate: Category Dynamic " + new Gson().toJson(categoryList.dynamicPrice) );
 
+        Log.e(TAG, "onCreate: "+categoryList.id );
     }
 
     private void getQuantityFromDatabase() {
@@ -878,6 +899,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 
         setPrice(categoryList.priceHtml);
 
+        setDynamicPriceRecyclerData();
+
 //        if (categoryList != null && categoryList.averageRating != null && categoryList.averageRating.equals("")) {
 //            tvRatting.setText("0");
 //
@@ -908,7 +931,6 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             llOutOfStock.setVisibility(View.VISIBLE);
         }
 
-
         setSellerInformation();
         setProductDescription();
         imageList = categoryList.images;
@@ -919,9 +941,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             String text = categoryList.attributes.get(0).name.substring(0, 1).toUpperCase() + categoryList.attributes.get(0).name.substring(1).toLowerCase();
             tvColor.setText(categoryList.attributes.get(0).options.size() + " " + text);
 
-        } else {
-
-        }
+        } else { }
         if (!categoryList.shortDescription.equals("")) {
 
             llQuickOverView.setVisibility(View.VISIBLE);
@@ -942,7 +962,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 //        hideSearchNotification();
         if (categoryList.type.equals(RequestParamUtils.variable)) {
             getVariation();
-        } else if (categoryList.type.equals(RequestParamUtils.simple)) {
+        }
+        else if (categoryList.type.equals(RequestParamUtils.simple)) {
             if (categoryList.featuredVideo != null && Constant.IS_YITH_FEATURED_VIDEO_ACTIVE
                     && categoryList.featuredVideo.imageUrl != null && categoryList.featuredVideo.videoId != null) {
                 CategoryList.Image images = new CategoryList().getImageInstance();
@@ -961,7 +982,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             }
             getReview();
 
-        } else if (categoryList.type.equals(RequestParamUtils.grouped)) {
+        }
+        else if (categoryList.type.equals(RequestParamUtils.grouped)) {
             if (categoryList.featuredVideo != null && categoryList.featuredVideo.url != null &&
                     categoryList.featuredVideo.imageUrl != null && Constant.IS_YITH_FEATURED_VIDEO_ACTIVE) {
                 CategoryList.Image images = new CategoryList().getImageInstance();
@@ -987,7 +1009,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             }
             getGroupProducts(groupis);
             setRvGroupProduct();
-        } else if (categoryList.type.equals(RequestParamUtils.external)) {
+        }
+        else if (categoryList.type.equals(RequestParamUtils.external)) {
             finish();
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(categoryList.externalUrl));
             startActivity(browserIntent);
@@ -1192,12 +1215,30 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         rvRelatedProduct.addItemDecoration(new EqualSpacingItemDecoration(10, EqualSpacingItemDecoration.HORIZONTAL)); // 16px. In practice, you'll want to use getDimensionPixelSize
     }
 
+    public void setDynamicPriceRecyclerData(){
+        dynamicPriceAdapter = new DynamicPriceAdapter(this,this/*, categoryList*/);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        rvDynamicPrice.setLayoutManager(layoutManager);
+        rvDynamicPrice.setAdapter(dynamicPriceAdapter);
+        rvDynamicPrice.setNestedScrollingEnabled(false);
+
+        Constant.regularPrice = categoryList.regularPrice;
+        Log.e(TAG, "setDynamicPriceRecyclerData: Harsh Regular Price "+Constant.regularPrice );
+
+        if (categoryList.dynamicPrice != null){
+            llDynamicDiscount.setVisibility(View.VISIBLE);
+            dynamicPriceAdapter.addAll(categoryList.dynamicPrice);
+        }
+        else{
+            llDynamicDiscount.setVisibility(View.GONE);
+        }
+
+    }
+
     @Override
     public void onResponse(String response, String methodName) {
-
         dismissProgress();
 
-        
         if (methodName.equals(RequestParamUtils.getVariation)) {
             Log.e(TAG, "onResponse: "+"called" );
             Log.e(TAG, "onResponse:  Harsh "+new Gson().toJson(response) );
@@ -1212,10 +1253,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
                                 jsonResponse, new TypeToken<Variation>() {
                                 }.getType());
 
-
                         variationList.add(variationRider);
 
-                        Log.e(TAG, "onResponse: Harsh "+variationRider );
                         Log.e(TAG, "onResponse: Harsh: "+new Gson().toJson(variationList) );
                     }
                     if (jsonArray.length() == 10) {
@@ -1525,7 +1564,11 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
                 groupProductAdapter.notifyDataSetChanged();
             }
         }
-//        changePrice();
+
+        if (outerPos == Constant.dynamicOuterPosition){
+            Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @OnClick(R.id.tvMoreQuickOverview)
@@ -2141,8 +2184,6 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
                 tvAvailibility.setText(R.string.in_stock);
                 tvAvailibility.setTextColor(Color.parseColor(getPreferences().getString(Constant.SECOND_COLOR, Constant.SECOND_COLOR)));
             }
-
-
         } else {
             tvStock.setVisibility(View.GONE);
             tvAvailibility.setText(R.string.out_of_stock);
@@ -2152,7 +2193,6 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             tvCart.setAlpha((float) 0.6);
             tvCart.setClickable(false);
         }
-
         if (databaseHelper.getVariationProductFromCart(getCartVariationProduct())) {
             tvCart.setText(getResources().getString(R.string.go_to_cart));
         } else {
@@ -2193,9 +2233,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             try {
                 logAddedToWishlistEvent(String.valueOf(categoryList.id), categoryList.name, Constant.CURRENCYSYMBOL, Double.parseDouble(value));
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
-
         }
     }
 
