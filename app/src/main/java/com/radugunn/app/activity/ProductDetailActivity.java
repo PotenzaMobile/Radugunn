@@ -39,6 +39,15 @@ import com.ciyashop.library.apicall.GetApi;
 import com.ciyashop.library.apicall.PostApi;
 import com.ciyashop.library.apicall.URLS;
 import com.ciyashop.library.apicall.interfaces.OnResponseListner;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.radugunn.app.R;
 import com.radugunn.app.adapter.DynamicPriceAdapter;
 import com.radugunn.app.adapter.GroupProductAdapter;
@@ -70,15 +79,6 @@ import com.radugunn.app.utils.Constant;
 import com.radugunn.app.utils.CustomToast;
 import com.radugunn.app.utils.RequestParamUtils;
 import com.radugunn.app.utils.Utils;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.firebase.dynamiclinks.DynamicLink;
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
-import com.google.firebase.dynamiclinks.ShortDynamicLink;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -401,7 +401,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 
     private Cart cart;
     private int buyNow;
-    private int quntity;
+    private int quantity;
 
     public enum State {
         EXPANDED,
@@ -536,14 +536,48 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             tvQuantity.setText(categoryList.getAdvancedQtyStep());
             etnote.setText("");
         }
+
+        if (Constant.is_dynamic_price) {
+            Constant.calculatedPrice = Utils.calculatedPrice(
+                    Constant.regularPrice,
+                    categoryList.dynamicPrice.get(0).discountAmount);
+            String price = Constant.CURRENCYSYMBOL + Constant.calculatedPrice;
+            tvPrice1.setText(price);
+            tvQuantity.setText(categoryList.dynamicPrice.get(0).maxQuantity);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        String productId = String.valueOf(categoryList.id);
+        if (productId.equals(Constant.dynamicProductId)) {
+            if (quantity != Constant.dynamicItemQuantity) {
+                int maxQuantity = Integer.parseInt(categoryList.dynamicPrice.get(dynamicQuantityPos).maxQuantity);
+                int minQuantity = Integer.parseInt(categoryList.dynamicPrice.get(dynamicQuantityPos).minQuantity);
+
+//                if (quantity <= maxQuantity && quantity >= minQuantity) {
+//                    quantity = Constant.dynamicItemQuantity;
+//                } else {
+                    quantity = Constant.dynamicItemQuantity;
+                    if (quantity < minQuantity) {
+                        checkDynamicMinQuantity();
+                    } else {
+                        checkDynamicMaxQuantity();
+                    }
+//                }
+                tvQuantity.setText(String.valueOf(quantity));
+            }
+        }
 
         Log.e(TAG, "onResume: " + "Called");
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Constant.dynamicItemQuantity = 0;
+        Constant.dynamicProductId = "";
     }
 
     private void setIncDec(CategoryList categoryList) {
@@ -551,43 +585,76 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
         tvQuantity.setText(categoryList.getAdvancedQtyStep());
 
         tvIncrement.setOnClickListener(v -> {
-            quntity = Integer.parseInt(tvQuantity.getText().toString());
+            quantity = Integer.parseInt(tvQuantity.getText().toString());
             if (categoryList.getAdvancedQtyStep().isEmpty()) {
-                quntity = quntity + 1;
+                quantity = quantity + 1;
             } else {
-                quntity = quntity + Integer.parseInt(categoryList.getAdvancedQtyStep());
-                Log.e("TAG", "onClick: " + quntity);
+                quantity = quantity + Integer.parseInt(categoryList.getAdvancedQtyStep());
+                Log.e("TAG", "onClick: " + quantity);
             }
 
             if (categoryList.manageStock) {
-                if (quntity > categoryList.stockQuantity) {
+                if (quantity > categoryList.stockQuantity) {
                     Toast.makeText(this, getString(R.string.only) + " " + categoryList.stockQuantity + " " + getString(R.string.quntity_is_avilable), Toast.LENGTH_SHORT).show();
                 } else {
-                    tvQuantity.setText(quntity + "");
+                    tvQuantity.setText(String.valueOf(quantity));
+                    checkDynamicMaxQuantity();
                 }
             } else {
-                tvQuantity.setText(quntity + "");
+                tvQuantity.setText(String.valueOf(quantity));
+                checkDynamicMaxQuantity();
             }
 
         });
 
         tvDecrement.setOnClickListener(v -> {
-            quntity = Integer.parseInt(tvQuantity.getText().toString());
+            quantity = Integer.parseInt(tvQuantity.getText().toString());
             if (categoryList.getAdvancedQtyStep().isEmpty()) {
-                quntity = quntity - 1;
-                if (quntity < 1) {
-                    quntity = 1;
+                quantity = quantity - 1;
+                if (quantity < 1) {
+                    quantity = 1;
                 }
             } else {
-                quntity = quntity - Integer.parseInt(categoryList.getAdvancedQtyStep());
-                Log.e("TAG", "onClick: " + quntity);
+                quantity = quantity - Integer.parseInt(categoryList.getAdvancedQtyStep());
+                Log.e("TAG", "onClick: " + quantity);
 
-                if (quntity < Integer.parseInt(categoryList.getAdvancedQtyStep())) {
-                    quntity = Integer.parseInt(categoryList.getAdvancedQtyStep());
+                if (quantity < Integer.parseInt(categoryList.getAdvancedQtyStep())) {
+                    quantity = Integer.parseInt(categoryList.getAdvancedQtyStep());
                 }
             }
-            tvQuantity.setText(quntity + "");
+            tvQuantity.setText(quantity + "");
+            checkDynamicMinQuantity();
         });
+    }
+
+    private void checkDynamicMaxQuantity() {
+        int maxQuantity = Integer.parseInt(categoryList.dynamicPrice.get(dynamicQuantityPos).maxQuantity);
+        if (quantity > maxQuantity && dynamicQuantityPos < categoryList.dynamicPrice.size() - 1) {
+            dynamicQuantityPos++;
+            dynamicPriceAdapter.updateSelection(dynamicQuantityPos);
+        }
+        setPrice();
+    }
+
+    private void checkDynamicMinQuantity() {
+        int minQuantity = Integer.parseInt(categoryList.dynamicPrice.get(dynamicQuantityPos).minQuantity);
+        if (quantity < minQuantity && dynamicQuantityPos > 0) {
+            dynamicQuantityPos--;
+            dynamicPriceAdapter.updateSelection(dynamicQuantityPos);
+        }
+        setPrice();
+    }
+
+    private void setPrice() {
+        if (Constant.CURRENCYSYMBOL == null) {
+            tvPrice1.setText(Utils.calculatedPrice(categoryList.regularPrice, categoryList.dynamicPrice.get(dynamicQuantityPos).discountAmount));
+        } else {
+            Constant.calculatedPrice = Utils.calculatedPrice(
+                    Constant.regularPrice,
+                    categoryList.dynamicPrice.get(dynamicQuantityPos).discountAmount);
+            String price = Constant.CURRENCYSYMBOL + Constant.calculatedPrice;
+            tvPrice1.setText(price);
+        }
     }
 
 
@@ -1223,7 +1290,7 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
     }
 
     public void setDynamicPriceRecyclerData(){
-        dynamicPriceAdapter = new DynamicPriceAdapter(this,this/*, categoryList*/);
+        dynamicPriceAdapter = new DynamicPriceAdapter(this, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         rvDynamicPrice.setLayoutManager(layoutManager);
         rvDynamicPrice.setAdapter(dynamicPriceAdapter);
@@ -1231,10 +1298,6 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
 
         Constant.regularPrice = categoryList.regularPrice;
         Constant.is_dynamic_price = categoryList.isDynamicPrice;
-        Log.e(TAG, "setDynamicPriceRecyclerData: Harsh"+ Constant.is_dynamic_price );
-        Log.e(TAG, "setDynamicPriceRecyclerData: Harsh Regular Price "+Constant.regularPrice );
-
-
 
         if (categoryList.dynamicPrice != null){
             llDynamicDiscount.setVisibility(View.VISIBLE);
@@ -1551,6 +1614,8 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
     }
 
     boolean isFirstItemSelected = false;
+    int dynamicQuantityPos = 0;
+
     @Override
     public void onItemClick(int position, String value, int outerPos) {
         if (outerPos != 11459060) {
@@ -1577,32 +1642,26 @@ public class ProductDetailActivity extends BaseActivity implements OnItemClickLi
             }
         }
 
-        if (outerPos == Constant.dynamicOuterPosition){
 
-            if (Constant.is_dynamic_price == true){
-
+        if (outerPos == Constant.dynamicOuterPosition) {
+            if (dynamicQuantityPos != position) {
+                dynamicQuantityPos = position;
+            }
+            if (Constant.is_dynamic_price) {
                 tvQuantity.setText(categoryList.dynamicPrice.get(position).maxQuantity);
 
-                if (Constant.CURRENCYSYMBOL == null){
+                if (Constant.CURRENCYSYMBOL == null) {
                     tvPrice1.setText(Utils.calculatedPrice(categoryList.regularPrice, categoryList.dynamicPrice.get(position).discountAmount));
-                }else{
-                    tvPrice1.setText(Constant.CURRENCYSYMBOL +
-                            Utils.calculatedPrice(categoryList.regularPrice, categoryList.dynamicPrice.get(position).discountAmount));
+                } else {
+                    String price = Constant.CURRENCYSYMBOL + Constant.calculatedPrice;
+                    tvPrice1.setText(price);
+//                    tvQuantity.setText(categoryList.dynamicPrice.get(0).maxQuantity);
                 }
-
-
-//                if (Constant.selectedItem == 0) {
-//                    if (isFirstItemSelected = true) {
-//                        tvQuantity.setText(categoryList.dynamicPrice.get(position).maxQuantity);
-//                    }
-//                }
-            }else{
+            } else {
                 isFirstItemSelected = false;
                 getQuantityFromDatabase();
                 setIncDec(categoryList);
             }
-
-            Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
         }
 
     }

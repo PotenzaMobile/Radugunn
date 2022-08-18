@@ -1,23 +1,23 @@
 package com.radugunn.app.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.text.Layout;
-import android.util.Log;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.radugunn.app.R;
-import com.radugunn.app.activity.ProductDetailActivity;
 import com.radugunn.app.interfaces.OnItemClickListner;
 import com.radugunn.app.model.CategoryList;
 import com.radugunn.app.utils.BaseActivity;
@@ -36,32 +36,29 @@ import butterknife.ButterKnife;
 public class DynamicPriceAdapter extends RecyclerView.Adapter<DynamicPriceAdapter.ViewHolder> {
 
     Context context;
-    Activity activity;
     OnItemClickListner itemClickListner;
     public List<CategoryList.DynamicPrice> categoryList = new ArrayList<>();
 
     int selectedPosition = 0;
-    private static final String TAG = "DynamicPriceAdapter";
 
-    /*private final CategoryList categoryLists ;*/
-
-//    List<CategoryList> categoryLists;
-
-    public DynamicPriceAdapter(Context activity, OnItemClickListner itemClickListner/*, CategoryList categoryList*/) {
+    public DynamicPriceAdapter(Context activity, OnItemClickListner itemClickListner) {
         this.context = activity;
         this.itemClickListner = itemClickListner;
-        /*categoryLists = categoryList;*/
     }
 
     public void addAll(List<CategoryList.DynamicPrice> list) {
         this.categoryList = list;
     }
 
+    public void updateSelection(int dynamicQuantityPos) {
+        selectedPosition = dynamicQuantityPos;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discount_table, parent, false);
-
         return new ViewHolder(view);
     }
 
@@ -71,33 +68,26 @@ public class DynamicPriceAdapter extends RecyclerView.Adapter<DynamicPriceAdapte
         int pos = holder.getAdapterPosition();
 
         if (categoryList != null) {
-
-
-            holder.tvDiscountQuantity.setText(categoryList.get(pos).minQuantity + " - " + categoryList.get(pos).maxQuantity);
+            String minQuantity = categoryList.get(pos).minQuantity;
+            String maxQuantity = categoryList.get(pos).maxQuantity;
+            holder.tvDiscountQuantity.setText(minQuantity + " - " + maxQuantity);
             holder.tvDiscountPrice.setText(
                     Constant.CURRENCYSYMBOL + Utils.calculatedPrice(
                             Constant.regularPrice,
-                            categoryList.get(pos).discountAmount)
-            ) ;
-            Constant.calculatedPrice = Utils.calculatedPrice(
-                    Constant.regularPrice,
-                    categoryList.get(pos).discountAmount);
-
-            Log.e(TAG, "onBindViewHolder: Harsh "+Constant.calculatedPrice );
+                            categoryList.get(pos).discountAmount));
 
             holder.tvDynamicDiscount.setText(categoryList.get(pos).discountAmount + "%");
 
-            holder.llMainDynamicPrice.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    itemClickListner.onItemClick(pos, String.valueOf(pos), Constant.dynamicOuterPosition);
-
-                   // changeLayout(holder,selectedPosition,pos);
-                }
+            holder.llMainDynamicPrice.setOnClickListener(v -> {
+                Constant.calculatedPrice = Utils.calculatedPrice(
+                        Constant.regularPrice,
+                        categoryList.get(pos).discountAmount);
+                itemClickListner.onItemClick(pos, String.valueOf(pos), Constant.dynamicOuterPosition);
+                selectedPosition = pos;
+                notifyDataSetChanged();
             });
 
-
-
+            changeLayout(holder, selectedPosition, pos);
         }
     }
 
@@ -106,11 +96,13 @@ public class DynamicPriceAdapter extends RecyclerView.Adapter<DynamicPriceAdapte
         return categoryList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tvDiscountQuantity)
         TextView tvDiscountQuantity;
+
+        @BindView(R.id.llDynamicRoot)
+        LinearLayout llDynamicRoot;
 
         @BindView(R.id.tvDiscountPrice)
         TextView tvDiscountPrice;
@@ -123,21 +115,36 @@ public class DynamicPriceAdapter extends RecyclerView.Adapter<DynamicPriceAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             ButterKnife.bind(this, itemView);
         }
     }
 
-    /*public void changeLayout(ViewHolder view, int selectedPosition, int position) {
-        if (selectedPosition == position){
-            view.tvDiscountQuantity.setTextColor(Color.parseColor(((BaseActivity) activity).getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
-            view.tvDiscountPrice.setTextColor(Color.parseColor(((BaseActivity) activity).getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
-            view.tvDynamicDiscount.setTextColor(Color.parseColor(((BaseActivity) activity).getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR)));
-        }else{
-            *//*view.tvDiscountQuantity.setTextColor(Color.parseColor(String.valueOf(((BaseActivity) context).getResources().getColor(R.color.black))));
-            view.tvDiscountPrice.setTextColor(Color.parseColor(String.valueOf(((BaseActivity) context).getResources().getColor(R.color.black))));
-            view.tvDynamicDiscount.setTextColor(Color.parseColor(String.valueOf(((BaseActivity) context).getResources().getColor(R.color.black))));*//*
+    public void changeLayout(ViewHolder view, int selectedPosition, int position) {
+
+        int selectedColor = Color.parseColor(((BaseActivity) context).getPreferences().getString(Constant.SECOND_COLOR, Constant.SECONDARY_COLOR));
+        int unSelectedColor = context.getResources().getColor(R.color.black);
+
+//        Drawable drawable = view.llDynamicRoot.getBackground();
+
+        if (selectedPosition == position) {
+            view.tvDiscountQuantity.setTextColor(selectedColor);
+            view.tvDiscountPrice.setTextColor(selectedColor);
+            view.tvDynamicDiscount.setTextColor(selectedColor);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                drawable.setTint(selectedColor);
+//                view.llDynamicRoot.setBackgroundDrawable(drawable);
+//            }
+//            view.llDynamicRoot.getBackground().setColorFilter(selectedColor, PorterDuff.Mode.SRC_ATOP);
+        } else {
+            view.tvDiscountQuantity.setTextColor(unSelectedColor);
+            view.tvDiscountPrice.setTextColor(unSelectedColor);
+            view.tvDynamicDiscount.setTextColor(unSelectedColor);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                drawable.setTint(unSelectedColor);
+//                view.llDynamicRoot.setBackgroundDrawable(drawable);
+//            }
+//            view.llDynamicRoot.getBackground().setColorFilter(unSelectedColor, PorterDuff.Mode.SRC_ATOP);
         }
-    }*/
+    }
 
 }

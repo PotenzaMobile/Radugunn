@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/radugann.iml" filepath="$PROJECT_DIR$/.idea/modules/radugann.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/radugann.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/radugann.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Radugunn.iml" filepath="$PROJECT_DIR$/.idea/modules/Radugunn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Radugunn.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Radugunn.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Radugunn.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Radugunn.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Radugunn.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Radugunn.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Radugunn.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Radugunn.app.unitTest.iml" />
     </modules>
   </component>
 </project>

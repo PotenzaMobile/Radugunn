@@ -1047,21 +1047,10 @@ public class BaseActivity extends AppCompatActivity implements GoogleApiClient.C
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     tvPrice.setText(Html.fromHtml(htmlText, Html.FROM_HTML_MODE_COMPACT));
-
-                    if (Constant.is_dynamic_price==true){
-                        tvPrice1.setText(Constant.calculatedPrice);
-                    }else{
-                        tvPrice1.setText(Html.fromHtml(htmlText1, Html.FROM_HTML_MODE_COMPACT));
-                    }
+                    tvPrice1.setText(Html.fromHtml(htmlText1, Html.FROM_HTML_MODE_COMPACT));
                 } else {
                     tvPrice.setText(Html.fromHtml(htmlText));
-
-                    if (Constant.is_dynamic_price==true){
-                        tvPrice1.setText(Constant.calculatedPrice);
-                    }else{
-                        tvPrice1.setText(Html.fromHtml(htmlText1));
-                    }
-
+                    tvPrice1.setText(Html.fromHtml(htmlText1));
                 }
                 String price11 = tvPrice.getText().toString();
                 String price22 = tvPrice1.getText().toString();

@@ -183,8 +183,9 @@ public class Constant {
     public static int dynamicOuterPosition = 123;
     public static String regularPrice = "";
     public static boolean is_dynamic_price = false;
-    public static int selectedItem = 0;
     public static String calculatedPrice = "";
 
+    public static int dynamicItemQuantity = 0;
+    public static String dynamicProductId = "";
 
 }

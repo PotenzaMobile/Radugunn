@@ -187,12 +187,16 @@ public class CartAdapter extends RecyclerView.Adapter {
                         Toast.makeText(activity, ((BaseActivity) activity).getString(R.string.only) + " " + list.get(position).getCategoryList().stockQuantity + " " + ((BaseActivity) activity).getString(R.string.quntity_is_avilable), Toast.LENGTH_SHORT).show();
                     } else {
                         holder.tvQuantity.setText(quntity + "");
+                        Constant.dynamicItemQuantity = quntity;
+                        Constant.dynamicProductId = list.get(position).getProductid();
                         databaseHelper.updateQuantity(quntity, list.get(position).getProductid(), list.get(position).getVariationid() + "");
                         list.get(position).setQuantity(quntity);
                         onItemClickListner.onItemClick(position, RequestParamUtils.increment, quntity);
                     }
                 } else {
                     holder.tvQuantity.setText(quntity + "");
+                    Constant.dynamicItemQuantity = quntity;
+                    Constant.dynamicProductId = list.get(position).getProductid();
                     databaseHelper.updateQuantity(quntity, list.get(position).getProductid(), list.get(position).getVariationid() + "");
                     list.get(position).setQuantity(quntity);
                     onItemClickListner.onItemClick(position, RequestParamUtils.increment, quntity);
@@ -218,6 +222,8 @@ public class CartAdapter extends RecyclerView.Adapter {
                 }
 
                 holder.tvQuantity.setText(quntity + "");
+                Constant.dynamicItemQuantity = quntity;
+                Constant.dynamicProductId = list.get(position).getProductid();
                 databaseHelper.updateQuantity(quntity, list.get(position).getProductid(), list.get(position).getVariationid() + "");
                 list.get(position).setQuantity(quntity);
                 onItemClickListner.onItemClick(position, RequestParamUtils.decrement, quntity);

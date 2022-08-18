@@ -28,7 +28,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
-
 import com.radugunn.app.R;
 
 import java.io.BufferedReader;
@@ -61,11 +60,8 @@ public class Utils {
     }
 
     public static String calculatedPrice(String regularPrice, String discountPercentage){
-        double calculatedPrcentagePrice = Double.parseDouble(String.valueOf(Double.parseDouble(regularPrice) / 100.0f * Double.parseDouble(discountPercentage)));
-
-        String substractedPrice = String.valueOf(Double.parseDouble(regularPrice) - calculatedPrcentagePrice);
-
-        return substractedPrice;
+        double calculatedPercentagePrice = Double.parseDouble(regularPrice) / 100.0f * Double.parseDouble(discountPercentage);
+        return String.valueOf(Double.parseDouble(regularPrice) - calculatedPercentagePrice);
     }
 
 
